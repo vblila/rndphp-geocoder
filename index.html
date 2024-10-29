@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Свой геокодер на PHP | Владимир Лила</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles/styles.css">
+    <style>
+        .shower {
+            --slide-ratio: calc(16 / 9);
+        }
+        .font-monospace { font-family:monospace; font-size: 20px; }
+        .bold { font-weight: bold; }
+        .mb-3 { margin-bottom: 30px; }
+        .mb-2 { margin-bottom: 30px; }
+        .small { font-size: 1rem; }
+        pre.small { font-size: 12px; }
+        .lh-12 { line-height: 1.2; }
+        .gray { color: #ccc }
+        .italic { font-style: italic; }
+    </style>
+</head>
+<body class="shower list">
+    <section class="slide preview">
+        <div class="lines"></div>
+        <div class="stripes"></div>
+        <h1>Свой геокодер на PHP</h1>
+        <p>Владимир Лила</p>
+    </section>
+
+    <section class="slide">
+        <div class="columns two">
+            <div>
+                <h2>Прямой геокодер</h2>
+                <div class="next">Пользователь указывает адрес:</div>
+                <div class="next"><span class="font-monospace bold">г Ростов-на-Дону ул Города Волос 6</span></div>
+                <div class="next">Находим координаты:</div>
+                <div class="next"><span class="font-monospace bold">47.227341, 39.706110</span></div>
+            </div>
+            <div>
+                <h2>Обратный геокодер</h2>
+                <div class="next">Пользователь указывает точку:</div>
+                <div class="next"><span class="font-monospace bold">47.227341, 39.706110</span></div>
+                <div class="next">Находим адрес:</div>
+                <div class="next"><span class="font-monospace bold">г Ростов-на-Дону ул Города Волос 6</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>Исходные данные</h2>
+        <div class="next mb-3">Исходный формат может быть любой. Например, у нас таблица в БД:</div>
+        <table class="next font-monospace">
+            <tr>
+                <th scope="col">Адрес</th>
+                <th>Широта</th>
+                <th>Долгота</th>
+            </tr>
+            <tr>
+                <th scope="row">г Ростов-на-Дону ул Города Волос 6</th>
+                <td>47.227341</td>
+                <td>39.706110</td>
+            </tr>
+            <tr>
+                <th scope="row">г Ростов-на-Дону ул Социалистическая 15</th>
+                <td>47.217733</td>
+                <td>39.701547</td>
+            </tr>
+            <tr>
+                <th scope="row">г Москва ул Солянка 15</th>
+                <td>55.750819</td>
+                <td>37.642411</td>
+            </tr>
+            <tr>
+                <th scope="row">...</th>
+                <td>...</td>
+                <td>...</td>
+            </tr>
+        </table>
+    </section>
+
+    <section class="slide">
+        <h2>Как же построить поисковый индекс?</h2>
+        <div class="next mb-2">1. Нужен уникальный идентификатор адреса</div>
+
+        <div class="next font-monospace bold"><mark>1001</mark> => г Ростов-на-Дону ул Города Волос 6</div>
+        <div class="next font-monospace bold"><mark>1002</mark> => г Ростов-на-Дону ул Социалистическая 15</div>
+        <div class="next font-monospace bold"><mark>1003</mark> => г Москва ул Солянка 15</div>
+    </section>
+
+    <section class="slide">
+        <h2>Как же построить поисковый индекс?</h2>
+        <div class="next mb-2">2. Нужен токенизатор</div>
+
+        <div class="next mb-2 font-monospace bold">
+            <div>г Ростов-на-Дону ул Города Волос 6:</div>
+            <div class="next"><mark>['г', 'Ростов-на-Дону', 'ул', 'Города', 'Волос', '6']</mark></div>
+        </div>
+
+        <div class="next mb-2 font-monospace bold">
+            <div>г Ростов-на-Дону ул Социалистическая 15:</div>
+            <div class="next"><mark>['г', 'Ростов-на-Дону', 'ул', 'Социалистическая', '15']</mark></div>
+        </div>
+
+        <div class="next mb-2 font-monospace bold">
+            <div>г Москва ул Солянка 15:</div>
+            <div class="next"><mark>['г', 'Москва', 'ул', 'Солянка', '15']</mark></div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>Как же построить поисковый индекс?</h2>
+        <div class="next mb-2">3. Нужен фильтр</div>
+        <ul>
+            <li class="next">
+                <div>Приводим все к одному регистру</div>
+                <div class="next font-monospace bold"><mark>Г РОСТОВ-НА-ДОНУ УЛ СОЦИАЛИСТИЧЕСКАЯ 15</mark></div>
+            </li>
+            <li class="next">
+                <div>Убираем стоп-слова: "г", "ул", "пр", "пер"</div>
+                <div class="next font-monospace bold"><mark>РОСТОВ-НА-ДОНУ СОЦИАЛИСТИЧЕСКАЯ 15</mark></div>
+            </li>
+            <li class="next">
+                <div>Стемминг</div>
+                <div class="next font-monospace bold"><mark>РОСТОВ-НА-ДОН СОЦИАЛИСТИЧЕСК 15</mark></div>
+            </li>
+        </ul>
+    </section>
+
+    <section class="slide">
+        <h2>Как же построить поисковый индекс?</h2>
+        <div class="next mb-2">4. Получаем фильтрованные токены</div>
+
+        <div class="next mb-2 font-monospace bold">
+            <div>г Ростов-на-Дону ул Города Волос 6:</div>
+            <div class="next"><mark>['РОСТОВ-НА-ДОН', 'ГОРОД', 'ВОЛОС', '6']</mark></div>
+        </div>
+
+        <div class="next mb-2 font-monospace bold">
+            <div>г Ростов-на-Дону ул Социалистическая 15:</div>
+            <div class="next"><mark>['РОСТОВ-НА-ДОН', 'СОЦИАЛИСТИЧЕСК', '15']</mark></div>
+        </div>
+
+        <div class="next mb-2 font-monospace bold">
+            <div>г Москва ул Солянка 15:</div>
+            <div class="next"><mark>['МОСКВ', 'СОЛЯНК', '15']</mark></div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>Как же построить поисковый индекс?</h2>
+        <div class="next mb-2">5. Итого имеем пока индекс на "листе бумаги":</div>
+
+        <pre class="font-monospace bold">
+        <span class="next">'РОСТОВ-НА-ДОН'  => [1001, 1002]</span>
+        <span class="next">'ГОРОД'          => [1001]</span>
+        <span class="next">'ВОЛОС'          => [1001]</span>
+        <span class="next">'6'              => [1001]</span>
+        <span class="next">'СОЦИАЛИСТИЧЕСК' => [1002]</span>
+        <span class="next">'15'             => [1002, 1003]</span>
+        <span class="next">'МОСКВ'          => [1003]</span>
+        <span class="next">'СОЛЯНК'         => [1003]</span>
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>Как перенести индекс в PHP?</h2>
+        <ul>
+            <li class="next">
+                <div class="bold">BTREE</div>
+                <div class="next"><mark>O(log N)</mark></div>
+            </li>
+            <li class="next">
+                <div class="bold">Префиксное дерево (TRIE)</div>
+                <div class="next"><mark>O(M)</mark> M - длина поисковой строки</div>
+            </li>
+            <li class="next">
+                <div class="bold">Hash-таблица</div>
+                <div class="next"><mark>O(1)</mark> в лучшем случае</div>
+            </li>
+        </ul>
+    </section>
+
+    <section class="slide">
+        <div class="columns two">
+            <div>
+                <h2>Остановимся пока на Hash-таблице</h2>
+                <ul>
+                    <li class="next lh-12 mb-2">Высокая скорость O(1)</li>
+                    <li class="next lh-12">Ассоциативные массивы PHP "из коробки" - это hash-таблицы</li>
+                </ul>
+            </div>
+            <div>
+                <h2>Простейший код с индексом в памяти на PHP</h2>
+<pre class="next font-monospace small">
+<span style="color:#6D3206">$index</span> = [
+    <span style="color:#018E01">'РОСТОВ-НА-ДОН'</span>  => [<span style="color: #F50000">1001</span>, <span style="color: #F50000">1002</span>],
+    <span style="color:#018E01">'ГОРОД'</span>          => [<span style="color: #F50000">1001</span>],
+    <span style="color:#018E01">'ВОЛОС'</span>          => [<span style="color: #F50000">1001</span>],
+    <span style="color:#018E01">'6'</span>              => [<span style="color: #F50000">1001</span>],
+    <span style="color:#018E01">'СОЦИАЛИСТИЧЕСК'</span> => [<span style="color: #F50000">1002</span>],
+    <span style="color:#018E01">'15'</span>             => [<span style="color: #F50000">1002</span>, <span style="color: #F50000">1003</span>],
+    <span style="color:#018E01">'МОСКВ'</span>          => [<span style="color: #F50000">1003</span>],
+    <span style="color:#018E01">'СОЛЯНК'</span>         => [<span style="color: #F50000">1003</span>],
+];
+</pre>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>Как использовать индекс для поиска?</h2>
+<pre class="next small">
+$counter = [];
+$bestId = null;
+// $tokens = ['РОСТОВ-НА-ДОН', 'СОЦИАЛИСТИЧЕСК', '15']
+$tokens = $tokenizer->getTokens('г Ростов-на-Дону ул Социалистическая 15');
+foreach ($tokens as $token) {
+    $addressIds = $index[$token] ?? [];
+    foreach ($addressIds as $id) {
+        $counter[$id] = isset($counter[$id]) ? $counter[$id] + 1 : 1;
+        if ($bestId === null || $counter[$bestId] < $counter[$id]) {
+            $bestId = $id;
+        }
+    }
+}
+// $counter = [1001 => 1, 1002 => 3, '1003' => 1]
+// $bestId = 1002
+echo getAddressById($bestId)->locationString();
+</pre>
+    </section>
+
+    <section class="slide">
+        <div class="columns two">
+            <div>
+                <h2>Как хранить индекс на диске?</h2>
+                <ul>
+                    <li class="next"><mark>JSON</mark></li>
+                    <li class="next"><mark>PHP serialize()</mark></li>
+                    <li class="next"><mark>PHP файл</mark></li>
+                </ul>
+            </div>
+            <div>
+                <h2>Как шарить между процессами?</h2>
+                <ul>
+                    <li class="next">Реляционные БД? <span class="next">👎</span></li>
+                    <li class="next">Колоночные БД? <span class="next">👎</span></li>
+                    <li class="next">Redis? <span class="next">👎</span></li>
+                    <li class="next">Memcached? <span class="next">👎</span></li>
+                    <li class="next"><mark>APCu</mark> 🔥</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>Итак, остановились на APCu</h2>
+        <div class="columns two">
+            <div>
+                <ul>
+                    <li class="next lh-12 mb-2">Пишет только в ОЗУ</li>
+                    <li class="next lh-12 mb-2">Один индекс для всех php-процессов</li>
+                    <li class="next lh-12 mb-2">Разделяемая память (Shared memory)</li>
+                    <li class="next lh-12 mb-2">Нет сетевых расходов</li>
+                    <li class="next lh-12 mb-2">Как итог, <mark>самый быстрый</mark></li>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <li class="next">
+                        <div>Сохраняет значение по ключу</div>
+                        <div class="font-monospace bold">apcu_store()</div>
+                    </li>
+                    <li class="next">
+                        <div>Возвращает значение по ключу</div>
+                        <div class="font-monospace bold">apcu_fetch()</div>
+                    </li>
+                    <li class="next">
+                        <div>Очистить всю память APCu </div>
+                        <div class="font-monospace bold">apcu_clear_cache()</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>А как же опечатки?</h2>
+        <div class="columns two">
+            <div>
+                <div class="next mb-2">Помогут нам <span class="bold">триграммы</span></div>
+                <ul>
+                    <li class="next lh-12 mb-2">Каждое слово делится на сочетания – триграммы</li>
+                    <li class="next lh-12 mb-2">При поиске похожей фразы ищутся одинаковые триграммы</li>
+                    <li class="next lh-12 mb-2">Чем больше равных триграмм, тем больше фраза схожа с исходной</li>
+                </ul>
+            </div>
+            <div>
+                <div class="next bold">Например, для "Ростов":</div>
+                <div class="bold font-monospace mb-3">
+                    <span class="next">__Р</span>
+                    <span class="next">_РО</span>
+                    <span class="next">РОС</span>
+                    <span class="next">ОСТ</span>
+                    <span class="next">СТО</span>
+                    <span class="next">ТОВ</span>
+                    <span class="next">ОВ_</span>
+                    <span class="next">В__</span>
+                </div>
+                <div class="next bold">Поиск по фразе "Растов":</div>
+                <div class="bold font-monospace mb-3">
+                    <span class="next">__Р</span>
+                    <span class="next">_РА</span>
+                    <span class="next">РАС</span>
+                    <span class="next">АСТ</span>
+                    <span class="next">СТО</span>
+                    <span class="next">ТОВ</span>
+                    <span class="next">ОВ_</span>
+                    <span class="next">В__</span>
+                </div>
+                <div class="next lh-12">
+                    Теперь нужен какой-то индекс по триграммам!
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>Индекс для триграмм</h2>
+        <div class="columns two">
+            <div>
+                <div class="next mb-2 lh-12">Нужны уникальные идентификаторы токенов</div>
+                <div class="next gray italic">// переулок Соляной спуск</div>
+                <div class="next font-monospace bold"><mark>301</mark> => СОЛЯН</div>
+                <div class="next gray italic">// ул Солянка</div>
+                <div class="next font-monospace bold"><mark>302</mark> => СОЛЯНК</div>
+            </div>
+            <div>
+                <pre class="next font-monospace small">
+<span style="color:#6D3206">$index</span> = [
+    <span style="color:#018E01">'__С'</span>  => [<span style="color: #F50000">301</span>, <span style="color: #F50000">302</span>],
+    <span style="color:#018E01">'_СО'</span>  => [<span style="color: #F50000">301</span>, <span style="color: #F50000">302</span>],
+    <span style="color:#018E01">'СОЛ'</span>  => [<span style="color: #F50000">301</span>, <span style="color: #F50000">302</span>],
+    <span style="color:#018E01">'ОЛЯ'</span>  => [<span style="color: #F50000">301</span>, <span style="color: #F50000">302</span>],
+    <span style="color:#018E01">'ЛЯН'</span>  => [<span style="color: #F50000">301</span>, <span style="color: #F50000">302</span>],
+    <span style="color:#018E01">'ЯН_'</span>  => [<span style="color: #F50000">301</span>],
+    <span style="color:#018E01">'Н__'</span>  => [<span style="color: #F50000">301</span>],
+    <span style="color:#018E01">'ЯНК'</span>  => [<span style="color: #F50000">302</span>],
+    <span style="color:#018E01">'НК_'</span>  => [<span style="color: #F50000">302</span>],
+    <span style="color:#018E01">'К__'</span>  => [<span style="color: #F50000">302</span>],
+];
+</pre>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>Как использовать индекс триграмм для опечаток?</h2>
+<pre class="next small">
+$counter = [];
+$bestTokenId = null;
+// $trigrams = ['__C', '_СА', 'САЛ', 'АЛЯ', 'ЛЯН', 'ЯН_', 'Н__']
+$trigrams = getTrigrams('САЛЯН');
+foreach ($trigrams as $trigram) {
+    // [301, 302], [], [], [], [301, 302], [301], [301]
+    $tokenIds = $index[$trigram] ?? [];
+    foreach ($tokenIds as $id) {
+        $counter[$id] = isset($counter[$id]) ? $counter[$id] + 1 : 1;
+        if ($bestTokenId === null || $counter[$bestTokenId] < $counter[$id]) {
+            $bestTokenId = $id;
+        }
+    }
+}
+// $counter = [301 => 4, 302 => 2], $bestTokenId = 301
+echo getTokenById($bestTokenId); // СОЛЯН
+</pre>
+    </section>
+
+    <section class="slide">
+        <h2>Как быть с подсказками (suggestions)?</h2>
+        <div class="next mb-3">Пользователь начинает ввод <span class="bold">"Солян"</span>. Хотим предложить варианты:</div>
+        <div class="next font-monospace bold">г Ростов-на-Дону ул Соляника</div>
+        <div class="next font-monospace bold">г Ростов-на-Дону пер Соляной Спуск</div>
+        <div class="next font-monospace bold">г Москва Солянка</div>
+        <div class="next font-monospace bold">г Москва Солянский тупик</div>
+        <div class="next font-monospace bold mb-3">г Москва Солянский проезд</div>
+
+        <div class="next">Похоже, наши индексы нам не помогут 🤔</div>
+    </section>
+
+    <section class="slide">
+        <h2>Префиксное дерево для подсказок</h2>
+        <div class="columns two">
+            <div>
+                <div class="mb-2">Дерево для токенов:</div>
+                <div class="lh-12 font-monospace bold">
+                    <div>СОЛЯНК</div>
+                    <div>СОБОРН</div>
+                    <div>СОКОЛОВ</div>
+                    <div>СОКОЛ</div>
+                    <div>СОВЕТСК</div>
+                    <div>МОСКВ</div>
+                    <div>МОСКОВСК</div>
+                    <div>МОНТАЖН</div>
+                </div>
+            </div>
+            <div>
+                <img src="pictures/lila/trie.png" style="max-width: 100%; max-height: 100%; display: block;margin: auto;">
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>Префиксное дерево для подсказок</h2>
+        <div class="columns two">
+            <div>
+                <div class="mb-2">Дерево для токенов:</div>
+                <div class="lh-12 font-monospace bold">
+                    <div><mark>СОЛЯНК</mark></div>
+                    <div>СОБОРН</div>
+                    <div>СОКОЛОВ</div>
+                    <div>СОКОЛ</div>
+                    <div>СОВЕТСК</div>
+                    <div>МОСКВ</div>
+                    <div>МОСКОВСК</div>
+                    <div>МОНТАЖН</div>
+                </div>
+            </div>
+            <div>
+                <img src="pictures/lila/trie-solyank.png" style="max-width: 100%; max-height: 100%; display: block;margin: auto;">
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>Префиксное дерево для подсказок</h2>
+        <div class="columns two">
+            <div>
+                <div class="mb-2">Дерево для токенов:</div>
+                <div class="lh-12 font-monospace bold">
+                    <div>СОЛЯНК</div>
+                    <div>СОБОРН</div>
+                    <div>СОКОЛОВ</div>
+                    <div>СОКОЛ</div>
+                    <div>СОВЕТСК</div>
+                    <div><mark>МОСКВ</mark></div>
+                    <div>МОСКОВСК</div>
+                    <div>МОНТАЖН</div>
+                </div>
+            </div>
+            <div>
+                <img src="pictures/lila/trie-moskv.png" style="max-width: 100%; max-height: 100%; display: block;margin: auto;">
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>Сжатое префиксное дерево</h2>
+        <img src="pictures/lila/trie-packed.png" style="max-width: 100%; max-height: 100%; display: block;margin: auto;">
+    </section>
+
+    <section class="slide">
+        <h2>Основная проблема производительности</h2>
+        <div class="columns two">
+            <div>
+                <div class="next lh-12 mb-2">Слишком популярные токены, например:</div>
+                <ul>
+                    <li class="next bold font-monospace">РОСТОВ</li>
+                    <li class="next bold font-monospace">МОСКОВ</li>
+                    <li class="next bold font-monospace">1...200</li>
+                </ul>
+
+                <div class="next lh-12 mb-2">В России <span class="bold">110+ млн</span> адресов (2024г)</div>
+                <div class="next lh-12 mb-2">В Москве <span class="bold">3.5+ млн</span> адресов (2018г)</div>
+                <div class="next lh-12 mb-2">В России <span class="bold">500+ тыс</span> улиц (2024г)</div>
+            </div>
+            <div>
+                <div class="next lh-12 mb-2">Для адреса <span class="bold">"г Москва ул Солянка 1"</span> пересечений:</div>
+                <div class="next font-monospace bold">3.5 млн + 500 тыс + 500 = ~4млн </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>Оптимизация</h2>
+        <ul>
+            <li class="next lh-12 mb-2">Для поиска городов отдельный индекс (без улиц и домов)</li>
+            <li class="next lh-12 mb-2">Отдельные индексы по улицам для каждого города</li>
+            <li class="next lh-12 mb-3">Отдельные индексы по номерам домов для каждой улицы</li>
+        </ul>
+
+        <div class="next">Самый большой индекс для Москвы - <span class="bold">3500</span> улиц 😌</div>
+    </section>
+
+    <section class="slide">
+        <h2 class="shout">Спасибо за внимание!</h2>
+    </section>
+
+    <div class="progress"></div>
+
+    <footer class="badge">
+        <a href="https://github.com/shower/shower">Fork me on GitHub</a>
+    </footer>
+
+    <script src="js/shower.min.js"></script>
+
+    <!-- Copyright © 3000 Yours Truly, Famous Inc. -->
+</body>
+</html>
