@@ -309,14 +309,14 @@ echo getAddressById($bestId)->locationString();
                 </div>
                 <div class="next bold">Поиск по фразе "Растов":</div>
                 <div class="bold font-monospace mb-3">
-                    <span class="next">__Р</span>
+                    <span class="next" style="color: #FFBB00">__Р</span>
                     <span class="next">_РА</span>
                     <span class="next">РАС</span>
                     <span class="next">АСТ</span>
-                    <span class="next">СТО</span>
-                    <span class="next">ТОВ</span>
-                    <span class="next">ОВ_</span>
-                    <span class="next">В__</span>
+                    <span class="next" style="color: #FFBB00">СТО</span>
+                    <span class="next" style="color: #FFBB00">ТОВ</span>
+                    <span class="next" style="color: #FFBB00">ОВ_</span>
+                    <span class="next" style="color: #FFBB00">В__</span>
                 </div>
                 <div class="next lh-12">
                     Теперь нужен какой-то индекс по триграммам!
@@ -393,7 +393,7 @@ echo getTokenById($bestTokenId); // СОЛЯН
         <div class="columns two">
             <div>
                 <div class="mb-2">Дерево для токенов:</div>
-                <div class="lh-12 font-monospace bold">
+                <div class="lh-12 font-monospace bold next">
                     <div>СОЛЯНК</div>
                     <div>СОБОРН</div>
                     <div>СОКОЛОВ</div>
@@ -405,7 +405,7 @@ echo getTokenById($bestTokenId); // СОЛЯН
                 </div>
             </div>
             <div>
-                <img src="pictures/lila/trie.png" style="max-width: 100%; max-height: 100%; display: block;margin: auto;">
+                <img class="next" src="pictures/lila/trie.png" style="max-width: 100%; max-height: 100%; display: block;margin: auto;">
             </div>
         </div>
     </section>
@@ -463,7 +463,7 @@ echo getTokenById($bestTokenId); // СОЛЯН
         <h2>Основная проблема производительности</h2>
         <div class="columns two">
             <div>
-                <div class="next lh-12 mb-2">Слишком популярные токены, например:</div>
+                <div class="next lh-12 mb-2">Слишком популярные токены:</div>
                 <ul>
                     <li class="next bold font-monospace">РОСТОВ</li>
                     <li class="next bold font-monospace">МОСКОВ</li>
@@ -476,7 +476,8 @@ echo getTokenById($bestTokenId); // СОЛЯН
             </div>
             <div>
                 <div class="next lh-12 mb-2">Для адреса <span class="bold">"г Москва ул Солянка 1"</span> пересечений:</div>
-                <div class="next font-monospace bold">3.5 млн + 500 тыс + 500 = ~4млн </div>
+                <div class="next font-monospace bold">3.5 млн + 500 тыс + 500</div>
+                <div class="next font-monospace bold" style="font-size: 36px"><mark>4+ млн</mark></div>
             </div>
         </div>
     </section>
