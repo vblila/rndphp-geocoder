@@ -16,8 +16,11 @@
         .small { font-size: 1rem; }
         pre.small { font-size: 12px; }
         .lh-12 { line-height: 1.2; }
+        .lh-14 { line-height: 1.4; }
+        .lh-15 { line-height: 1.5; }
         .gray { color: #ccc }
         .italic { font-style: italic; }
+        .hljs{ width: 2000px; font-family:monospace; font-size: 20px; margin: 0; /* firefox, download/view-in-new-window */ }
     </style>
 </head>
 <body class="shower list">
@@ -94,38 +97,39 @@
 
         <div class="next mb-2 font-monospace bold">
             <div>г Ростов-на-Дону ул Города Волос 6:</div>
-            <div class="next"><mark>['г', 'Ростов-на-Дону', 'ул', 'Города', 'Волос', '6']</mark></div>
+            <div class="next">[<mark>'г'</mark>, <mark>'Ростов-на-Дону'</mark>, <mark>'ул'</mark>, <mark>'Города'</mark>, <mark>'Волос'</mark>, <mark>'6'</mark>]</div>
         </div>
 
         <div class="next mb-2 font-monospace bold">
             <div>г Ростов-на-Дону ул Социалистическая 15:</div>
-            <div class="next"><mark>['г', 'Ростов-на-Дону', 'ул', 'Социалистическая', '15']</mark></div>
+            <div class="next">[<mark>'г'</mark>, <mark>'Ростов-на-Дону'</mark>, <mark>'ул'</mark>, <mark>'Социалистическая'</mark>, <mark>'15'</mark>]</div>
         </div>
 
         <div class="next mb-2 font-monospace bold">
             <div>г Москва ул Солянка 15:</div>
-            <div class="next"><mark>['г', 'Москва', 'ул', 'Солянка', '15']</mark></div>
+            <div class="next">[<mark>'г'</mark>, <mark>'Москва'</mark>, <mark>'ул'</mark>, <mark>'Солянка'</mark>, <mark>'15'</mark>]</div>
         </div>
     </section>
 
     <section class="slide">
         <h2>Как же построить поисковый индекс?</h2>
         <div class="next mb-2">3. Нужен фильтр</div>
-        <ul>
-            <li class="next">
-                <div>Приводим все к одному регистру</div>
-                <div class="next font-monospace bold"><mark>Г РОСТОВ-НА-ДОНУ УЛ СОЦИАЛИСТИЧЕСКАЯ 15</mark></div>
-            </li>
-            <li class="next">
-                <div>Убираем стоп-слова: "г", "ул", "пр", "пер"</div>
-                <div class="next font-monospace bold"><mark>РОСТОВ-НА-ДОНУ СОЦИАЛИСТИЧЕСКАЯ 15</mark></div>
-            </li>
-            <li class="next">
-                <div>Стемминг</div>
-                <div class="next font-monospace bold"><mark>РОСТОВ-НА-ДОН СОЦИАЛИСТИЧЕСК 15</mark></div>
-            </li>
-        </ul>
-    </section>
+
+        <div class="next mb-2">
+            <div class="lh-15">Приводим все к одному регистру</div>
+            <div class="next font-monospace bold">Г РОСТОВ-НА-ДОНУ УЛ СОЦИАЛИСТИЧЕСКАЯ 15</div>
+        </div>
+
+        <div class="next mb-2">
+            <div class="lh-15">Убираем стоп-слова: "г", "ул", "пр", "пер"</div>
+            <div class="next font-monospace bold">Г <mark>РОСТОВ-НА-ДОНУ</mark> УЛ <mark>СОЦИАЛИСТИЧЕСКАЯ 15</mark></div>
+        </div>
+
+        <div class="next mb-2">
+            <div class="lh-15">Стемминг</div>
+            <div class="next font-monospace bold">Г <mark>РОСТОВ-НА-ДОН</mark>У УЛ <mark>СОЦИАЛИСТИЧЕСК</mark>АЯ <mark>15</mark></div>
+        </div>
+   </section>
 
     <section class="slide">
         <h2>Как же построить поисковый индекс?</h2>
@@ -133,17 +137,17 @@
 
         <div class="next mb-2 font-monospace bold">
             <div>г Ростов-на-Дону ул Города Волос 6:</div>
-            <div class="next"><mark>['РОСТОВ-НА-ДОН', 'ГОРОД', 'ВОЛОС', '6']</mark></div>
+            <div class="next">[<mark>'РОСТОВ-НА-ДОН'</mark>, <mark>'ГОРОД'</mark>, <mark>'ВОЛОС'</mark>, <mark>'6'</mark>]</div>
         </div>
 
         <div class="next mb-2 font-monospace bold">
             <div>г Ростов-на-Дону ул Социалистическая 15:</div>
-            <div class="next"><mark>['РОСТОВ-НА-ДОН', 'СОЦИАЛИСТИЧЕСК', '15']</mark></div>
+            <div class="next">[<mark>'РОСТОВ-НА-ДОН'</mark>, <mark>'СОЦИАЛИСТИЧЕСК'</mark>, <mark>'15'</mark>]</div>
         </div>
 
         <div class="next mb-2 font-monospace bold">
             <div>г Москва ул Солянка 15:</div>
-            <div class="next"><mark>['МОСКВ', 'СОЛЯНК', '15']</mark></div>
+            <div class="next">[<mark>'МОСКВ'</mark>, <mark>'СОЛЯНК'</mark>, <mark>'15'</mark>]</div>
         </div>
     </section>
 
@@ -151,16 +155,16 @@
         <h2>Как же построить поисковый индекс?</h2>
         <div class="next mb-2">5. Итого имеем пока индекс на "листе бумаги":</div>
 
-        <pre class="font-monospace bold">
-        <span class="next">'РОСТОВ-НА-ДОН'  => [1001, 1002]</span>
-        <span class="next">'ГОРОД'          => [1001]</span>
-        <span class="next">'ВОЛОС'          => [1001]</span>
-        <span class="next">'6'              => [1001]</span>
-        <span class="next">'СОЦИАЛИСТИЧЕСК' => [1002]</span>
-        <span class="next">'15'             => [1002, 1003]</span>
-        <span class="next">'МОСКВ'          => [1003]</span>
-        <span class="next">'СОЛЯНК'         => [1003]</span>
-        </pre>
+<pre class="font-monospace bold">
+<span class="next">'РОСТОВ-НА-ДОН'  => [1001, 1002]</span>
+<span class="next">'ГОРОД'          => [1001]</span>
+<span class="next">'ВОЛОС'          => [1001]</span>
+<span class="next">'6'              => [1001]</span>
+<span class="next">'СОЦИАЛИСТИЧЕСК' => [1002]</span>
+<span class="next">'15'             => [1002, 1003]</span>
+<span class="next">'МОСКВ'          => [1003]</span>
+<span class="next">'СОЛЯНК'         => [1003]</span>
+</pre>
     </section>
 
     <section class="slide">
@@ -192,42 +196,14 @@
             </div>
             <div>
                 <h2>Простейший код с индексом в памяти на PHP</h2>
-<pre class="next font-monospace small">
-<span style="color:#6D3206">$index</span> = [
-    <span style="color:#018E01">'РОСТОВ-НА-ДОН'</span>  => [<span style="color: #F50000">1001</span>, <span style="color: #F50000">1002</span>],
-    <span style="color:#018E01">'ГОРОД'</span>          => [<span style="color: #F50000">1001</span>],
-    <span style="color:#018E01">'ВОЛОС'</span>          => [<span style="color: #F50000">1001</span>],
-    <span style="color:#018E01">'6'</span>              => [<span style="color: #F50000">1001</span>],
-    <span style="color:#018E01">'СОЦИАЛИСТИЧЕСК'</span> => [<span style="color: #F50000">1002</span>],
-    <span style="color:#018E01">'15'</span>             => [<span style="color: #F50000">1002</span>, <span style="color: #F50000">1003</span>],
-    <span style="color:#018E01">'МОСКВ'</span>          => [<span style="color: #F50000">1003</span>],
-    <span style="color:#018E01">'СОЛЯНК'</span>         => [<span style="color: #F50000">1003</span>],
-];
-</pre>
+                <pre class="lh-15 next font-monospace" style="color: rgb(36, 41, 46); background-color: rgb(255, 255, 255); font-weight: 400; "><ol style="padding-left: 3em;"><li><span style="color: rgb(0, 92, 197); font-weight: 400;">$index</span> = [</li><li>    <span style="color: rgb(3, 47, 98); font-weight: 400;">'РОСТОВ-НА-ДОН'</span>  =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">1001</span>, <span style="color: rgb(0, 92, 197); font-weight: 400;">1002</span>],</li><li>    <span style="color: rgb(3, 47, 98); font-weight: 400;">'ГОРОД'</span>          =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">1001</span>],</li><li>    <span style="color: rgb(3, 47, 98); font-weight: 400;">'ВОЛОС'</span>          =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">1001</span>],</li><li>    <span style="color: rgb(3, 47, 98); font-weight: 400;">'6'</span>              =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">1001</span>],</li><li>    <span style="color: rgb(3, 47, 98); font-weight: 400;">'СОЦИАЛИСТИЧЕСК'</span> =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">1002</span>],</li><li>    <span style="color: rgb(3, 47, 98); font-weight: 400;">'15'</span>             =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">1002</span>, <span style="color: rgb(0, 92, 197); font-weight: 400;">1003</span>],</li><li>    <span style="color: rgb(3, 47, 98); font-weight: 400;">'МОСКВ'</span>          =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">1003</span>],</li><li>    <span style="color: rgb(3, 47, 98); font-weight: 400;">'СОЛЯНК'</span>         =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">1003</span>],</li><li>];</li></ol></pre>
             </div>
         </div>
     </section>
 
     <section class="slide">
         <h2>Как использовать индекс для поиска?</h2>
-<pre class="next small">
-$counter = [];
-$bestId = null;
-// $tokens = ['РОСТОВ-НА-ДОН', 'СОЦИАЛИСТИЧЕСК', '15']
-$tokens = $tokenizer->getTokens('г Ростов-на-Дону ул Социалистическая 15');
-foreach ($tokens as $token) {
-    $addressIds = $index[$token] ?? [];
-    foreach ($addressIds as $id) {
-        $counter[$id] = isset($counter[$id]) ? $counter[$id] + 1 : 1;
-        if ($bestId === null || $counter[$bestId] < $counter[$id]) {
-            $bestId = $id;
-        }
-    }
-}
-// $counter = [1001 => 1, 1002 => 3, '1003' => 1]
-// $bestId = 1002
-echo getAddressById($bestId)->locationString();
-</pre>
+        <pre class="lh-15 next font-monospace" style="color: rgb(36, 41, 46); background-color: rgb(255, 255, 255); font-weight: 400; "><ol style="padding-left: 3em;"><li><span style="color: rgb(0, 92, 197); font-weight: 400;">$counter</span> = [];</li><li><span style="color: rgb(0, 92, 197); font-weight: 400;">$bestId</span> = <span style="color: rgb(0, 92, 197); font-weight: 400;">null</span>;</li><li><span style="color: rgb(106, 115, 125); font-weight: 400;">// $tokens = ['РОСТОВ-НА-ДОН', 'СОЦИАЛИСТИЧЕСК', '15']</span></li><li><span style="color: rgb(0, 92, 197); font-weight: 400;">$tokens</span> = <span style="color: rgb(0, 92, 197); font-weight: 400;">$tokenizer</span>-&gt;<span style="color: rgb(111, 66, 193); font-weight: 400;">getTokens</span>(<span style="color: rgb(3, 47, 98); font-weight: 400;">'г Ростов-на-Дону ул Социалистическая 15'</span>);</li><li><span style="color: rgb(215, 58, 73); font-weight: 400;">foreach</span> (<span style="color: rgb(0, 92, 197); font-weight: 400;">$tokens</span> <span style="color: rgb(215, 58, 73); font-weight: 400;">as</span> <span style="color: rgb(0, 92, 197); font-weight: 400;">$token</span>) {</li><li>    <span style="color: rgb(0, 92, 197); font-weight: 400;">$addressIds</span> = <span style="color: rgb(0, 92, 197); font-weight: 400;">$index</span>[<span style="color: rgb(0, 92, 197); font-weight: 400;">$token</span>] ?? [];</li><li>    <span style="color: rgb(215, 58, 73); font-weight: 400;">foreach</span> (<span style="color: rgb(0, 92, 197); font-weight: 400;">$addressIds</span> <span style="color: rgb(215, 58, 73); font-weight: 400;">as</span> <span style="color: rgb(0, 92, 197); font-weight: 400;">$id</span>) {</li><li>        <span style="color: rgb(0, 92, 197); font-weight: 400;">$counter</span>[<span style="color: rgb(0, 92, 197); font-weight: 400;">$id</span>] = <span style="color: rgb(215, 58, 73); font-weight: 400;">isset</span>(<span style="color: rgb(0, 92, 197); font-weight: 400;">$counter</span>[<span style="color: rgb(0, 92, 197); font-weight: 400;">$id</span>]) ? <span style="color: rgb(0, 92, 197); font-weight: 400;">$counter</span>[<span style="color: rgb(0, 92, 197); font-weight: 400;">$id</span>] + <span style="color: rgb(0, 92, 197); font-weight: 400;">1</span> : <span style="color: rgb(0, 92, 197); font-weight: 400;">1</span>;</li><li>        <span style="color: rgb(215, 58, 73); font-weight: 400;">if</span> (<span style="color: rgb(0, 92, 197); font-weight: 400;">$bestId</span> === <span style="color: rgb(0, 92, 197); font-weight: 400;">null</span> || <span style="color: rgb(0, 92, 197); font-weight: 400;">$counter</span>[<span style="color: rgb(0, 92, 197); font-weight: 400;">$bestId</span>] &lt; <span style="color: rgb(0, 92, 197); font-weight: 400;">$counter</span>[<span style="color: rgb(0, 92, 197); font-weight: 400;">$id</span>]) {</li><li>            <span style="color: rgb(0, 92, 197); font-weight: 400;">$bestId</span> = <span style="color: rgb(0, 92, 197); font-weight: 400;">$id</span>;</li><li>        }</li><li>    }</li><li>}</li><li><span style="color: rgb(106, 115, 125); font-weight: 400;">// $counter = [1001 =&gt; 1, 1002 =&gt; 3, '1003' =&gt; 1]</span></li><li><span style="color: rgb(106, 115, 125); font-weight: 400;">// $bestId = 1002</span></li><li><span style="color: rgb(215, 58, 73); font-weight: 400;">echo</span> <span style="color: rgb(111, 66, 193); font-weight: 400;">getAddressById</span>(<span style="color: rgb(0, 92, 197); font-weight: 400;">$bestId</span>)-&gt;<span style="color: rgb(111, 66, 193); font-weight: 400;">locationString</span>();</li></ol></pre>
     </section>
 
     <section class="slide">
@@ -252,6 +228,8 @@ echo getAddressById($bestId)->locationString();
             </div>
         </div>
     </section>
+
+
 
     <section class="slide">
         <h2>Итак, остановились на APCu</h2>
@@ -286,15 +264,9 @@ echo getAddressById($bestId)->locationString();
 
     <section class="slide">
         <h2>А как же опечатки?</h2>
-        <div class="columns two">
-            <div>
-                <div class="next mb-2">Помогут нам <span class="bold">триграммы</span></div>
-                <ul>
-                    <li class="next lh-12 mb-2">Каждое слово делится на сочетания – триграммы</li>
-                    <li class="next lh-12 mb-2">При поиске похожей фразы ищутся одинаковые триграммы</li>
-                    <li class="next lh-12 mb-2">Чем больше равных триграмм, тем больше фраза схожа с исходной</li>
-                </ul>
-            </div>
+        <div class="next mb-2">Помогут нам <mark>триграммы</mark></div>
+        <div class="columns two lh-12">
+            <div class="next">Каждое слово делится на сочетания – триграммы</div>
             <div>
                 <div class="next bold">Например, для "Ростов":</div>
                 <div class="bold font-monospace mb-3">
@@ -307,6 +279,11 @@ echo getAddressById($bestId)->locationString();
                     <span class="next">ОВ_</span>
                     <span class="next">В__</span>
                 </div>
+            </div>
+        </div>
+        <div class="columns two lh-12">
+            <div class="next">При поиске похожей фразы ищутся одинаковые триграммы</div>
+            <div>
                 <div class="next bold">Поиск по фразе "Растов":</div>
                 <div class="bold font-monospace mb-3">
                     <span class="next" style="color: #FFBB00">__Р</span>
@@ -318,9 +295,12 @@ echo getAddressById($bestId)->locationString();
                     <span class="next" style="color: #FFBB00">ОВ_</span>
                     <span class="next" style="color: #FFBB00">В__</span>
                 </div>
-                <div class="next lh-12">
-                    Теперь нужен какой-то индекс по триграммам!
-                </div>
+            </div>
+        </div>
+        <div class="columns two lh-12">
+            <div class="next">Чем больше равных триграмм, тем больше фраза схожа с исходной</div>
+            <div>
+                <mark class="next">Нужен индекс по триграммам!</mark>
             </div>
         </div>
     </section>
@@ -336,44 +316,14 @@ echo getAddressById($bestId)->locationString();
                 <div class="next font-monospace bold"><mark>302</mark> => СОЛЯНК</div>
             </div>
             <div>
-                <pre class="next font-monospace small">
-<span style="color:#6D3206">$index</span> = [
-    <span style="color:#018E01">'__С'</span>  => [<span style="color: #F50000">301</span>, <span style="color: #F50000">302</span>],
-    <span style="color:#018E01">'_СО'</span>  => [<span style="color: #F50000">301</span>, <span style="color: #F50000">302</span>],
-    <span style="color:#018E01">'СОЛ'</span>  => [<span style="color: #F50000">301</span>, <span style="color: #F50000">302</span>],
-    <span style="color:#018E01">'ОЛЯ'</span>  => [<span style="color: #F50000">301</span>, <span style="color: #F50000">302</span>],
-    <span style="color:#018E01">'ЛЯН'</span>  => [<span style="color: #F50000">301</span>, <span style="color: #F50000">302</span>],
-    <span style="color:#018E01">'ЯН_'</span>  => [<span style="color: #F50000">301</span>],
-    <span style="color:#018E01">'Н__'</span>  => [<span style="color: #F50000">301</span>],
-    <span style="color:#018E01">'ЯНК'</span>  => [<span style="color: #F50000">302</span>],
-    <span style="color:#018E01">'НК_'</span>  => [<span style="color: #F50000">302</span>],
-    <span style="color:#018E01">'К__'</span>  => [<span style="color: #F50000">302</span>],
-];
-</pre>
+                <pre class="lh-15 next font-monospace" style="color: rgb(36, 41, 46); background-color: rgb(255, 255, 255); font-weight: 400; "><ol style="padding-left: 3em;"><li><span style="color: rgb(0, 92, 197); font-weight: 400;">$index</span> = [</li><li>    <span style="color: rgb(3, 47, 98); font-weight: 400;">'__С'</span>  =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">301</span>, <span style="color: rgb(0, 92, 197); font-weight: 400;">302</span>],</li><li>    <span style="color: rgb(3, 47, 98); font-weight: 400;">'_СО'</span>  =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">301</span>, <span style="color: rgb(0, 92, 197); font-weight: 400;">302</span>],</li><li>    <span style="color: rgb(3, 47, 98); font-weight: 400;">'СОЛ'</span>  =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">301</span>, <span style="color: rgb(0, 92, 197); font-weight: 400;">302</span>],</li><li>    <span style="color: rgb(3, 47, 98); font-weight: 400;">'ОЛЯ'</span>  =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">301</span>, <span style="color: rgb(0, 92, 197); font-weight: 400;">302</span>],</li><li>    <span style="color: rgb(3, 47, 98); font-weight: 400;">'ЛЯН'</span>  =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">301</span>, <span style="color: rgb(0, 92, 197); font-weight: 400;">302</span>],</li><li>    <span style="color: rgb(3, 47, 98); font-weight: 400;">'ЯН_'</span>  =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">301</span>],</li><li>    <span style="color: rgb(3, 47, 98); font-weight: 400;">'Н__'</span>  =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">301</span>],</li><li>    <span style="color: rgb(3, 47, 98); font-weight: 400;">'ЯНК'</span>  =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">302</span>],</li><li>    <span style="color: rgb(3, 47, 98); font-weight: 400;">'НК_'</span>  =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">302</span>],</li><li>    <span style="color: rgb(3, 47, 98); font-weight: 400;">'К__'</span>  =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">302</span>],</li><li>];</li></ol></pre>
             </div>
         </div>
     </section>
 
     <section class="slide">
         <h2>Как использовать индекс триграмм для опечаток?</h2>
-<pre class="next small">
-$counter = [];
-$bestTokenId = null;
-// $trigrams = ['__C', '_СА', 'САЛ', 'АЛЯ', 'ЛЯН', 'ЯН_', 'Н__']
-$trigrams = getTrigrams('САЛЯН');
-foreach ($trigrams as $trigram) {
-    // [301, 302], [], [], [], [301, 302], [301], [301]
-    $tokenIds = $index[$trigram] ?? [];
-    foreach ($tokenIds as $id) {
-        $counter[$id] = isset($counter[$id]) ? $counter[$id] + 1 : 1;
-        if ($bestTokenId === null || $counter[$bestTokenId] < $counter[$id]) {
-            $bestTokenId = $id;
-        }
-    }
-}
-// $counter = [301 => 4, 302 => 2], $bestTokenId = 301
-echo getTokenById($bestTokenId); // СОЛЯН
-</pre>
+        <pre class="lh-15 next font-monospace" style="color: rgb(36, 41, 46); background-color: rgb(255, 255, 255); font-weight: 400; "><ol style="padding-left: 3em;"><li><span style="color: rgb(0, 92, 197); font-weight: 400;">$bestTokenId</span> = <span style="color: rgb(0, 92, 197); font-weight: 400;">null</span>;</li><li><span style="color: rgb(106, 115, 125); font-weight: 400;">// $trigrams = ['__C', '_СА', 'САЛ', 'АЛЯ', 'ЛЯН', 'ЯН_', 'Н__']</span></li><li><span style="color: rgb(0, 92, 197); font-weight: 400;">$trigrams</span> = <span style="color: rgb(111, 66, 193); font-weight: 400;">getTrigrams</span>(<span style="color: rgb(3, 47, 98); font-weight: 400;">'САЛЯН'</span>);</li><li><span style="color: rgb(215, 58, 73); font-weight: 400;">foreach</span> (<span style="color: rgb(0, 92, 197); font-weight: 400;">$trigrams</span> <span style="color: rgb(215, 58, 73); font-weight: 400;">as</span> <span style="color: rgb(0, 92, 197); font-weight: 400;">$trigram</span>) {</li><li>    <span style="color: rgb(106, 115, 125); font-weight: 400;">// [301, 302], [], [], [], [301, 302], [301], [301]</span></li><li>    <span style="color: rgb(0, 92, 197); font-weight: 400;">$tokenIds</span> = <span style="color: rgb(0, 92, 197); font-weight: 400;">$index</span>[<span style="color: rgb(0, 92, 197); font-weight: 400;">$trigram</span>] ?? [];</li><li>    <span style="color: rgb(215, 58, 73); font-weight: 400;">foreach</span> (<span style="color: rgb(0, 92, 197); font-weight: 400;">$tokenIds</span> <span style="color: rgb(215, 58, 73); font-weight: 400;">as</span> <span style="color: rgb(0, 92, 197); font-weight: 400;">$id</span>) {</li><li>        <span style="color: rgb(0, 92, 197); font-weight: 400;">$counter</span>[<span style="color: rgb(0, 92, 197); font-weight: 400;">$id</span>] = <span style="color: rgb(215, 58, 73); font-weight: 400;">isset</span>(<span style="color: rgb(0, 92, 197); font-weight: 400;">$counter</span>[<span style="color: rgb(0, 92, 197); font-weight: 400;">$id</span>]) ? <span style="color: rgb(0, 92, 197); font-weight: 400;">$counter</span>[<span style="color: rgb(0, 92, 197); font-weight: 400;">$id</span>] + <span style="color: rgb(0, 92, 197); font-weight: 400;">1</span> : <span style="color: rgb(0, 92, 197); font-weight: 400;">1</span>;</li><li>        <span style="color: rgb(215, 58, 73); font-weight: 400;">if</span> (<span style="color: rgb(0, 92, 197); font-weight: 400;">$bestTokenId</span> === <span style="color: rgb(0, 92, 197); font-weight: 400;">null</span> || <span style="color: rgb(0, 92, 197); font-weight: 400;">$counter</span>[<span style="color: rgb(0, 92, 197); font-weight: 400;">$bestTokenId</span>] &lt; <span style="color: rgb(0, 92, 197); font-weight: 400;">$counter</span>[<span style="color: rgb(0, 92, 197); font-weight: 400;">$id</span>]) {</li><li>            <span style="color: rgb(0, 92, 197); font-weight: 400;">$bestTokenId</span> = <span style="color: rgb(0, 92, 197); font-weight: 400;">$id</span>;</li><li>        }</li><li>    }</li><li>}</li><li><span style="color: rgb(106, 115, 125); font-weight: 400;">// $counter = [301 =&gt; 4, 302 =&gt; 2], $bestTokenId = 301</span></li><li><span style="color: rgb(215, 58, 73); font-weight: 400;">echo</span> <span style="color: rgb(111, 66, 193); font-weight: 400;">getTokenById</span>(<span style="color: rgb(0, 92, 197); font-weight: 400;">$bestTokenId</span>); <span style="color: rgb(106, 115, 125); font-weight: 400;">// СОЛЯН</span></li></ol></pre>
     </section>
 
     <section class="slide">
@@ -460,23 +410,30 @@ echo getTokenById($bestTokenId); // СОЛЯН
     </section>
 
     <section class="slide">
+        <h2>Индекс на PHP для сжатого префиксного дерева</h2>
+        <pre class="lh-14 next font-monospace" style="color: rgb(36, 41, 46); background-color: rgb(255, 255, 255); font-weight: 400; "><ol style="padding-left: 3em;"><li><span style="color: rgb(0, 92, 197); font-weight: 400;">$index</span> = [</li><li>    <span style="color: rgb(3, 47, 98); font-weight: 400;">'СО'</span> =&gt; [</li><li>        <span style="color: rgb(3, 47, 98); font-weight: 400;">'ЛЯНК'</span>  =&gt; [<span style="color: rgb(3, 47, 98); font-weight: 400;">'*'</span> =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">100</span>, <span style="color: rgb(0, 92, 197); font-weight: 400;">101</span>, ...]],</li><li>        <span style="color: rgb(3, 47, 98); font-weight: 400;">'БОРН'</span>  =&gt; [<span style="color: rgb(3, 47, 98); font-weight: 400;">'*'</span> =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">200</span>, <span style="color: rgb(0, 92, 197); font-weight: 400;">201</span>, ...]],</li><li>        <span style="color: rgb(3, 47, 98); font-weight: 400;">'КОЛ'</span>   =&gt; [</li><li>            <span style="color: rgb(3, 47, 98); font-weight: 400;">'*'</span>  =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">300</span>, <span style="color: rgb(0, 92, 197); font-weight: 400;">301</span>, ...],</li><li>            <span style="color: rgb(3, 47, 98); font-weight: 400;">'ОВ'</span> =&gt; [<span style="color: rgb(3, 47, 98); font-weight: 400;">'*'</span> =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">400</span>, <span style="color: rgb(0, 92, 197); font-weight: 400;">401</span>, ...]],</li><li>        ],</li><li>        <span style="color: rgb(3, 47, 98); font-weight: 400;">'ВЕТСК'</span> =&gt; [<span style="color: rgb(3, 47, 98); font-weight: 400;">'*'</span> =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">500</span>, <span style="color: rgb(0, 92, 197); font-weight: 400;">501</span>, ...]],</li><li>    ],</li><li>    <span style="color: rgb(3, 47, 98); font-weight: 400;">'МО'</span> =&gt; [</li><li>        <span style="color: rgb(3, 47, 98); font-weight: 400;">'СК'</span>    =&gt; [</li><li>            <span style="color: rgb(3, 47, 98); font-weight: 400;">'ОВСК'</span> =&gt; [<span style="color: rgb(3, 47, 98); font-weight: 400;">'*'</span> =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">600</span>, <span style="color: rgb(0, 92, 197); font-weight: 400;">601</span>, ...]],</li><li>            <span style="color: rgb(3, 47, 98); font-weight: 400;">'В'</span>    =&gt; [<span style="color: rgb(3, 47, 98); font-weight: 400;">'*'</span> =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">700</span>, <span style="color: rgb(0, 92, 197); font-weight: 400;">701</span>, ...]],</li><li>        ],</li><li>        <span style="color: rgb(3, 47, 98); font-weight: 400;">'НТАЖН'</span> =&gt; [<span style="color: rgb(3, 47, 98); font-weight: 400;">'*'</span> =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">800</span>, <span style="color: rgb(0, 92, 197); font-weight: 400;">801</span>, ...]],</li><li>    ],</li><li>];</li></ol></pre>
+    </section>
+
+
+    <section class="slide">
         <h2>Основная проблема производительности</h2>
         <div class="columns two">
             <div>
                 <div class="next lh-12 mb-2">Слишком популярные токены:</div>
                 <ul>
-                    <li class="next bold font-monospace">РОСТОВ</li>
-                    <li class="next bold font-monospace">МОСКОВ</li>
-                    <li class="next bold font-monospace">1...200</li>
+                    <li class="next bold font-monospace">
+                        <div>МОСКОВ</div>
+                        <mark class="next">3.5+ млн адресов</mark>
+                    </li>
+                    <li class="next bold font-monospace">
+                        <div>1...200</div>
+                        <mark class="next">500+ тыс улиц</mark>
+                    </li>
                 </ul>
-
-                <div class="next lh-12 mb-2">В России <span class="bold">110+ млн</span> адресов (2024г)</div>
-                <div class="next lh-12 mb-2">В Москве <span class="bold">3.5+ млн</span> адресов (2018г)</div>
-                <div class="next lh-12 mb-2">В России <span class="bold">500+ тыс</span> улиц (2024г)</div>
             </div>
             <div>
                 <div class="next lh-12 mb-2">Для адреса <span class="bold">"г Москва ул Солянка 1"</span> пересечений:</div>
-                <div class="next font-monospace bold">3.5 млн + 500 тыс + 500</div>
+                <div class="next font-monospace bold">3.5 млн + 500 + 500 тыс</div>
                 <div class="next font-monospace bold" style="font-size: 36px"><mark>4+ млн</mark></div>
             </div>
         </div>
@@ -484,13 +441,28 @@ echo getTokenById($bestTokenId); // СОЛЯН
 
     <section class="slide">
         <h2>Оптимизация</h2>
-        <ul>
-            <li class="next lh-12 mb-2">Для поиска городов отдельный индекс (без улиц и домов)</li>
-            <li class="next lh-12 mb-2">Отдельные индексы по улицам для каждого города</li>
-            <li class="next lh-12 mb-3">Отдельные индексы по номерам домов для каждой улицы</li>
-        </ul>
-
-        <div class="next">Самый большой индекс для Москвы - <span class="bold">3500</span> улиц 😌</div>
+        <div class="columns two">
+            <div>
+                <ul>
+                    <li class="next lh-12 mb-2">Для поиска городов отдельный индекс (без улиц и домов)</li>
+                    <li class="next lh-12 mb-2">Отдельные индексы по улицам для каждого города</li>
+                    <li class="next lh-12 mb-3">Отдельные индексы по номерам домов для каждой улицы</li>
+                </ul>
+            </div>
+            <div>
+                <div class="bold next">Время поиска адреса:</div>
+                <div class="next">ДО оптимизации:</div>
+                <div>
+                    <mark class="font-monospace bold next">0.300-0.400 сек</mark>
+                    <span class="next">😱</span>
+                </div>
+                <div class="next">ПОСЛЕ оптимизации:</div>
+                <div>
+                    <mark class="font-monospace bold next">0.0001 сек</mark>
+                    <span class="next">😎</span>
+                </div>
+            </div>
+        </div>
     </section>
 
     <section class="slide">
