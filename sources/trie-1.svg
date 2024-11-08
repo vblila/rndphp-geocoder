@@ -24,9 +24,9 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:snap-global="true"
-     inkscape:zoom="0.5"
-     inkscape:cx="-3462"
-     inkscape:cy="-242"
+     inkscape:zoom="0.64"
+     inkscape:cx="-2971.875"
+     inkscape:cy="40.625"
      inkscape:window-width="1920"
      inkscape:window-height="1151"
      inkscape:window-x="0"
@@ -823,6 +823,20 @@
        d="m -712.1042,-37.732536 v 4.110471"
        id="path75838"
        inkscape:connector-type="orthogonal"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -864.31555,28.777642 v 4.705024"
+       id="path285"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#path57-3-2-3-2"
+       inkscape:connection-end="#path57-3-2-3-2-1" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.181189px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M -864.31555,16.83375 V 11.559784"
+       id="path495"
+       inkscape:connector-type="polyline"
        inkscape:connector-curvature="0" />
   </g>
 </svg>

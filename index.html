@@ -13,14 +13,27 @@
         .bold { font-weight: bold; }
         .mb-3 { margin-bottom: 30px; }
         .mb-2 { margin-bottom: 30px; }
-        .small { font-size: 1rem; }
-        pre.small { font-size: 12px; }
         .lh-12 { line-height: 1.2; }
         .lh-14 { line-height: 1.4; }
         .lh-15 { line-height: 1.5; }
         .gray { color: #ccc }
         .italic { font-style: italic; }
-        .hljs{ width: 2000px; font-family:monospace; font-size: 20px; margin: 0; /* firefox, download/view-in-new-window */ }
+
+        .company {
+            display: inline-block;
+            width: 120px;
+            height: 50px;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: 100px;
+        }
+
+        .company.dostavista { background-image: url('pictures/lila/companies/dostavista.svg'); background-size: 90px; }
+        .company.vkontakte { background-image: url('pictures/lila/companies/vkontakte.svg'); background-size: 130px; width: 140px;}
+        .company.biglion { background-image: url('pictures/lila/companies/biglion.png'); background-size: 80px; width: 100px;}
+        .company.maaaps { background-image: url('pictures/lila/companies/maaaps.svg'); }
+        .company.first-position { background-position: left center; }
+
     </style>
 </head>
 <body class="shower list">
@@ -29,6 +42,31 @@
         <div class="stripes"></div>
         <h1>Свой геокодер на PHP</h1>
         <p>Владимир Лила</p>
+    </section>
+
+    <section class="slide">
+        <h2>О себе</h2>
+        <div class="columns two">
+            <div>
+                <img src="pictures/lila/ava.webp" alt="Лила Владимир" style="max-width: 100%; max-height: 400px;">
+            </div>
+            <div>
+                <div class="lh-12 bold mb-2">Владимир Лила</div>
+                <div class="lh-12 font-monospace mb-2">Технический директор<br>Тандал | <a href="https://tandal.ru">tandal.ru</a></div>
+                <div style="clear: both" class="mb-2">
+                    <div class="company vkontakte first-position"></div>
+                    <div class="company dostavista"></div>
+                    <div class="company biglion"></div>
+                </div>
+
+                <div class="mb">
+                    <div class="lh-12 font-monospace">Экс-сооснователь</div>
+                    <div style="clear: both">
+                        <div class="company maaaps first-position"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <section class="slide">
@@ -229,8 +267,6 @@
         </div>
     </section>
 
-
-
     <section class="slide">
         <h2>Итак, остановились на APCu</h2>
         <div class="columns two">
@@ -422,18 +458,18 @@
                 <div class="next lh-12 mb-2">Слишком популярные токены:</div>
                 <ul>
                     <li class="next bold font-monospace">
-                        <div>МОСКОВ</div>
+                        <div>МОСКВ</div>
                         <mark class="next">3.5+ млн адресов</mark>
                     </li>
                     <li class="next bold font-monospace">
                         <div>1...200</div>
-                        <mark class="next">500+ тыс улиц</mark>
+                        <mark class="next">0.5+ млн улиц</mark>
                     </li>
                 </ul>
             </div>
             <div>
                 <div class="next lh-12 mb-2">Для адреса <span class="bold">"г Москва ул Солянка 1"</span> пересечений:</div>
-                <div class="next font-monospace bold">3.5 млн + 500 + 500 тыс</div>
+                <div class="next font-monospace bold">3.5 + 0.0005 + 0.5</div>
                 <div class="next font-monospace bold" style="font-size: 36px"><mark>4+ млн</mark></div>
             </div>
         </div>
@@ -466,7 +502,12 @@
     </section>
 
     <section class="slide">
-        <h2 class="shout">Спасибо за внимание!</h2>
+        <h1 style="text-align: center; font-size: 80px">Спасибо за внимание!</h1>
+        <div style="width:70%; margin: 50px auto;">
+            <div class="lh-12" style="background-position: left center; background-image: url('pictures/lila/icons/github.svg'); background-repeat: no-repeat; padding-left: 50px; height: 40px; padding-top: 5px;">github.com/vblila</div>
+            <div class="lh-12" style="background-position: left center; background-image: url('pictures/lila/icons/linkedin.svg'); background-repeat: no-repeat; padding-left: 50px; height: 40px; padding-top: 5px;">linkedin.com/in/vladimir-lila</div>
+            <div class="lh-12" style="background-position: left center; background-image: url('pictures/lila/icons/vk.svg'); background-repeat: no-repeat; padding-left: 50px; height: 40px; padding-top: 5px;">vk.com/v.b.lila</div>
+        </div>
     </section>
 
     <div class="progress"></div>
