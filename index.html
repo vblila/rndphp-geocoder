@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Свой геокодер на PHP | Владимир Лила</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles/styles.css">
+    <style>
+        .shower {
+            --slide-ratio: calc(16 / 9);
+        }
+        .font-monospace { font-family:monospace; font-size: 20px; }
+        .bold { font-weight: bold; }
+        .mb-3 { margin-bottom: 30px; }
+        .mb-2 { margin-bottom: 30px; }
+        .lh-12 { line-height: 1.2; }
+        .lh-14 { line-height: 1.4; }
+        .lh-15 { line-height: 1.5; }
+        .gray { color: #ccc }
+        .italic { font-style: italic; }
+
+        .company {
+            display: inline-block;
+            width: 120px;
+            height: 50px;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: 100px;
+        }
+
+        .company.dostavista { background-image: url('pictures/lila/companies/dostavista.svg'); background-size: 90px; }
+        .company.vkontakte { background-image: url('pictures/lila/companies/vkontakte.svg'); background-size: 130px; width: 140px;}
+        .company.biglion { background-image: url('pictures/lila/companies/biglion.png'); background-size: 80px; width: 100px;}
+        .company.maaaps { background-image: url('pictures/lila/companies/maaaps.svg'); }
+        .company.first-position { background-position: left center; }
+
+    </style>
+</head>
+<body class="shower list">
+    <section class="slide preview">
+        <div class="lines"></div>
+        <div class="stripes"></div>
+        <h1>Свой геокодер на PHP</h1>
+        <p>Владимир Лила</p>
+    </section>
+
+    <section class="slide">
+        <h2>О себе</h2>
+        <div class="columns two">
+            <div>
+                <img src="pictures/lila/ava.webp" alt="Лила Владимир" style="max-width: 100%; max-height: 400px;">
+            </div>
+            <div>
+                <div class="lh-12 bold mb-2">Владимир Лила</div>
+                <div class="lh-12 font-monospace mb-2">Технический директор<br>Тандал | <a href="https://tandal.ru">tandal.ru</a></div>
+                <div style="clear: both" class="mb-2">
+                    <div class="company vkontakte first-position"></div>
+                    <div class="company dostavista"></div>
+                    <div class="company biglion"></div>
+                </div>
+
+                <div class="mb">
+                    <div class="lh-12 font-monospace">Экс-сооснователь</div>
+                    <div style="clear: both">
+                        <div class="company maaaps first-position"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="columns two">
+            <div>
+                <h2>Прямой геокодер</h2>
+                <div class="next">Пользователь указывает адрес:</div>
+                <div class="next"><span class="font-monospace bold">г Ростов-на-Дону ул Города Волос 6</span></div>
+                <div class="next">Находим координаты:</div>
+                <div class="next"><span class="font-monospace bold">47.227341, 39.706110</span></div>
+            </div>
+            <div>
+                <h2>Обратный геокодер</h2>
+                <div class="next">Пользователь указывает точку:</div>
+                <div class="next"><span class="font-monospace bold">47.227341, 39.706110</span></div>
+                <div class="next">Находим адрес:</div>
+                <div class="next"><span class="font-monospace bold">г Ростов-на-Дону ул Города Волос 6</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>Исходные данные</h2>
+        <div class="next mb-3">Исходный формат может быть любой. Например, у нас таблица в БД:</div>
+        <table class="next font-monospace">
+            <tr>
+                <th scope="col">Адрес</th>
+                <th>Широта</th>
+                <th>Долгота</th>
+            </tr>
+            <tr>
+                <th scope="row">г Ростов-на-Дону ул Города Волос 6</th>
+                <td>47.227341</td>
+                <td>39.706110</td>
+            </tr>
+            <tr>
+                <th scope="row">г Ростов-на-Дону ул Социалистическая 15</th>
+                <td>47.217733</td>
+                <td>39.701547</td>
+            </tr>
+            <tr>
+                <th scope="row">г Москва ул Солянка 15</th>
+                <td>55.750819</td>
+                <td>37.642411</td>
+            </tr>
+            <tr>
+                <th scope="row">...</th>
+                <td>...</td>
+                <td>...</td>
+            </tr>
+        </table>
+    </section>
+
+    <section class="slide">
+        <h2>Как же построить поисковый индекс?</h2>
+        <div class="next mb-2">1. Нужен уникальный идентификатор адреса</div>
+
+        <div class="next font-monospace bold"><mark>1001</mark> => г Ростов-на-Дону ул Города Волос 6</div>
+        <div class="next font-monospace bold"><mark>1002</mark> => г Ростов-на-Дону ул Социалистическая 15</div>
+        <div class="next font-monospace bold"><mark>1003</mark> => г Москва ул Солянка 15</div>
+    </section>
+
+    <section class="slide">
+        <h2>Как же построить поисковый индекс?</h2>
+        <div class="next mb-2">2. Нужен токенизатор</div>
+
+        <div class="next mb-2 font-monospace bold">
+            <div>г Ростов-на-Дону ул Города Волос 6:</div>
+            <div class="next">[<mark>'г'</mark>, <mark>'Ростов-на-Дону'</mark>, <mark>'ул'</mark>, <mark>'Города'</mark>, <mark>'Волос'</mark>, <mark>'6'</mark>]</div>
+        </div>
+
+        <div class="next mb-2 font-monospace bold">
+            <div>г Ростов-на-Дону ул Социалистическая 15:</div>
+            <div class="next">[<mark>'г'</mark>, <mark>'Ростов-на-Дону'</mark>, <mark>'ул'</mark>, <mark>'Социалистическая'</mark>, <mark>'15'</mark>]</div>
+        </div>
+
+        <div class="next mb-2 font-monospace bold">
+            <div>г Москва ул Солянка 15:</div>
+            <div class="next">[<mark>'г'</mark>, <mark>'Москва'</mark>, <mark>'ул'</mark>, <mark>'Солянка'</mark>, <mark>'15'</mark>]</div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>Как же построить поисковый индекс?</h2>
+        <div class="next mb-2">3. Нужен фильтр</div>
+
+        <div class="next mb-2">
+            <div class="lh-15">Приводим все к одному регистру</div>
+            <div class="next font-monospace bold">Г РОСТОВ-НА-ДОНУ УЛ СОЦИАЛИСТИЧЕСКАЯ 15</div>
+        </div>
+
+        <div class="next mb-2">
+            <div class="lh-15">Убираем стоп-слова: "г", "ул", "пр", "пер"</div>
+            <div class="next font-monospace bold">Г <mark>РОСТОВ-НА-ДОНУ</mark> УЛ <mark>СОЦИАЛИСТИЧЕСКАЯ 15</mark></div>
+        </div>
+
+        <div class="next mb-2">
+            <div class="lh-15">Стемминг</div>
+            <div class="next font-monospace bold">Г <mark>РОСТОВ-НА-ДОН</mark>У УЛ <mark>СОЦИАЛИСТИЧЕСК</mark>АЯ <mark>15</mark></div>
+        </div>
+   </section>
+
+    <section class="slide">
+        <h2>Как же построить поисковый индекс?</h2>
+        <div class="next mb-2">4. Получаем фильтрованные токены</div>
+
+        <div class="next mb-2 font-monospace bold">
+            <div>г Ростов-на-Дону ул Города Волос 6:</div>
+            <div class="next">[<mark>'РОСТОВ-НА-ДОН'</mark>, <mark>'ГОРОД'</mark>, <mark>'ВОЛОС'</mark>, <mark>'6'</mark>]</div>
+        </div>
+
+        <div class="next mb-2 font-monospace bold">
+            <div>г Ростов-на-Дону ул Социалистическая 15:</div>
+            <div class="next">[<mark>'РОСТОВ-НА-ДОН'</mark>, <mark>'СОЦИАЛИСТИЧЕСК'</mark>, <mark>'15'</mark>]</div>
+        </div>
+
+        <div class="next mb-2 font-monospace bold">
+            <div>г Москва ул Солянка 15:</div>
+            <div class="next">[<mark>'МОСКВ'</mark>, <mark>'СОЛЯНК'</mark>, <mark>'15'</mark>]</div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>Как же построить поисковый индекс?</h2>
+        <div class="next mb-2">5. Итого имеем пока индекс на "листе бумаги":</div>
+
+<pre class="font-monospace bold">
+<span class="next">'РОСТОВ-НА-ДОН'  => [1001, 1002]</span>
+<span class="next">'ГОРОД'          => [1001]</span>
+<span class="next">'ВОЛОС'          => [1001]</span>
+<span class="next">'6'              => [1001]</span>
+<span class="next">'СОЦИАЛИСТИЧЕСК' => [1002]</span>
+<span class="next">'15'             => [1002, 1003]</span>
+<span class="next">'МОСКВ'          => [1003]</span>
+<span class="next">'СОЛЯНК'         => [1003]</span>
+</pre>
+    </section>
+
+    <section class="slide">
+        <h2>Как перенести индекс в PHP?</h2>
+        <ul>
+            <li class="next">
+                <div class="bold">BTREE</div>
+                <div class="next"><mark>O(log N)</mark></div>
+            </li>
+            <li class="next">
+                <div class="bold">Префиксное дерево (TRIE)</div>
+                <div class="next"><mark>O(M)</mark> M - длина поисковой строки</div>
+            </li>
+            <li class="next">
+                <div class="bold">Hash-таблица</div>
+                <div class="next"><mark>O(1)</mark> в лучшем случае</div>
+            </li>
+        </ul>
+    </section>
+
+    <section class="slide">
+        <div class="columns two">
+            <div>
+                <h2>Остановимся пока на Hash-таблице</h2>
+                <ul>
+                    <li class="next lh-12 mb-2">Высокая скорость O(1)</li>
+                    <li class="next lh-12">Ассоциативные массивы PHP "из коробки" - это hash-таблицы</li>
+                </ul>
+            </div>
+            <div>
+                <h2>Простейший код с индексом в памяти на PHP</h2>
+                <pre class="lh-15 next font-monospace" style="color: rgb(36, 41, 46); background-color: rgb(255, 255, 255); font-weight: 400; "><ol style="padding-left: 3em;"><li><span style="color: rgb(0, 92, 197); font-weight: 400;">$index</span> = [</li><li>    <span style="color: rgb(3, 47, 98); font-weight: 400;">'РОСТОВ-НА-ДОН'</span>  =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">1001</span>, <span style="color: rgb(0, 92, 197); font-weight: 400;">1002</span>],</li><li>    <span style="color: rgb(3, 47, 98); font-weight: 400;">'ГОРОД'</span>          =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">1001</span>],</li><li>    <span style="color: rgb(3, 47, 98); font-weight: 400;">'ВОЛОС'</span>          =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">1001</span>],</li><li>    <span style="color: rgb(3, 47, 98); font-weight: 400;">'6'</span>              =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">1001</span>],</li><li>    <span style="color: rgb(3, 47, 98); font-weight: 400;">'СОЦИАЛИСТИЧЕСК'</span> =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">1002</span>],</li><li>    <span style="color: rgb(3, 47, 98); font-weight: 400;">'15'</span>             =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">1002</span>, <span style="color: rgb(0, 92, 197); font-weight: 400;">1003</span>],</li><li>    <span style="color: rgb(3, 47, 98); font-weight: 400;">'МОСКВ'</span>          =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">1003</span>],</li><li>    <span style="color: rgb(3, 47, 98); font-weight: 400;">'СОЛЯНК'</span>         =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">1003</span>],</li><li>];</li></ol></pre>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>Как использовать индекс для поиска?</h2>
+        <pre class="lh-15 next font-monospace" style="color: rgb(36, 41, 46); background-color: rgb(255, 255, 255); font-weight: 400; "><ol style="padding-left: 3em;"><li><span style="color: rgb(0, 92, 197); font-weight: 400;">$counter</span> = [];</li><li><span style="color: rgb(0, 92, 197); font-weight: 400;">$bestId</span> = <span style="color: rgb(0, 92, 197); font-weight: 400;">null</span>;</li><li><span style="color: rgb(106, 115, 125); font-weight: 400;">// $tokens = ['РОСТОВ-НА-ДОН', 'СОЦИАЛИСТИЧЕСК', '15']</span></li><li><span style="color: rgb(0, 92, 197); font-weight: 400;">$tokens</span> = <span style="color: rgb(0, 92, 197); font-weight: 400;">$tokenizer</span>-&gt;<span style="color: rgb(111, 66, 193); font-weight: 400;">getTokens</span>(<span style="color: rgb(3, 47, 98); font-weight: 400;">'г Ростов-на-Дону ул Социалистическая 15'</span>);</li><li><span style="color: rgb(215, 58, 73); font-weight: 400;">foreach</span> (<span style="color: rgb(0, 92, 197); font-weight: 400;">$tokens</span> <span style="color: rgb(215, 58, 73); font-weight: 400;">as</span> <span style="color: rgb(0, 92, 197); font-weight: 400;">$token</span>) {</li><li>    <span style="color: rgb(0, 92, 197); font-weight: 400;">$addressIds</span> = <span style="color: rgb(0, 92, 197); font-weight: 400;">$index</span>[<span style="color: rgb(0, 92, 197); font-weight: 400;">$token</span>] ?? [];</li><li>    <span style="color: rgb(215, 58, 73); font-weight: 400;">foreach</span> (<span style="color: rgb(0, 92, 197); font-weight: 400;">$addressIds</span> <span style="color: rgb(215, 58, 73); font-weight: 400;">as</span> <span style="color: rgb(0, 92, 197); font-weight: 400;">$id</span>) {</li><li>        <span style="color: rgb(0, 92, 197); font-weight: 400;">$counter</span>[<span style="color: rgb(0, 92, 197); font-weight: 400;">$id</span>] = <span style="color: rgb(215, 58, 73); font-weight: 400;">isset</span>(<span style="color: rgb(0, 92, 197); font-weight: 400;">$counter</span>[<span style="color: rgb(0, 92, 197); font-weight: 400;">$id</span>]) ? <span style="color: rgb(0, 92, 197); font-weight: 400;">$counter</span>[<span style="color: rgb(0, 92, 197); font-weight: 400;">$id</span>] + <span style="color: rgb(0, 92, 197); font-weight: 400;">1</span> : <span style="color: rgb(0, 92, 197); font-weight: 400;">1</span>;</li><li>        <span style="color: rgb(215, 58, 73); font-weight: 400;">if</span> (<span style="color: rgb(0, 92, 197); font-weight: 400;">$bestId</span> === <span style="color: rgb(0, 92, 197); font-weight: 400;">null</span> || <span style="color: rgb(0, 92, 197); font-weight: 400;">$counter</span>[<span style="color: rgb(0, 92, 197); font-weight: 400;">$bestId</span>] &lt; <span style="color: rgb(0, 92, 197); font-weight: 400;">$counter</span>[<span style="color: rgb(0, 92, 197); font-weight: 400;">$id</span>]) {</li><li>            <span style="color: rgb(0, 92, 197); font-weight: 400;">$bestId</span> = <span style="color: rgb(0, 92, 197); font-weight: 400;">$id</span>;</li><li>        }</li><li>    }</li><li>}</li><li><span style="color: rgb(106, 115, 125); font-weight: 400;">// $counter = [1001 =&gt; 1, 1002 =&gt; 3, '1003' =&gt; 1]</span></li><li><span style="color: rgb(106, 115, 125); font-weight: 400;">// $bestId = 1002</span></li><li><span style="color: rgb(215, 58, 73); font-weight: 400;">echo</span> <span style="color: rgb(111, 66, 193); font-weight: 400;">getAddressById</span>(<span style="color: rgb(0, 92, 197); font-weight: 400;">$bestId</span>)-&gt;<span style="color: rgb(111, 66, 193); font-weight: 400;">locationString</span>();</li></ol></pre>
+    </section>
+
+    <section class="slide">
+        <div class="columns two">
+            <div>
+                <h2>Как хранить индекс на диске?</h2>
+                <ul>
+                    <li class="next"><mark>JSON</mark></li>
+                    <li class="next"><mark>PHP serialize()</mark></li>
+                    <li class="next"><mark>PHP файл</mark></li>
+                </ul>
+            </div>
+            <div>
+                <h2>Как шарить между процессами?</h2>
+                <ul>
+                    <li class="next">Реляционные БД? <span class="next">👎</span></li>
+                    <li class="next">Колоночные БД? <span class="next">👎</span></li>
+                    <li class="next">Redis? <span class="next">👎</span></li>
+                    <li class="next">Memcached? <span class="next">👎</span></li>
+                    <li class="next"><mark>APCu</mark> 🔥</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>Итак, остановились на APCu</h2>
+        <div class="columns two">
+            <div>
+                <ul>
+                    <li class="next lh-12 mb-2">Пишет только в ОЗУ</li>
+                    <li class="next lh-12 mb-2">Один индекс для всех php-процессов</li>
+                    <li class="next lh-12 mb-2">Разделяемая память (Shared memory)</li>
+                    <li class="next lh-12 mb-2">Нет сетевых расходов</li>
+                    <li class="next lh-12 mb-2">Как итог, <mark>самый быстрый</mark></li>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <li class="next">
+                        <div>Сохраняет значение по ключу</div>
+                        <div class="font-monospace bold">apcu_store()</div>
+                    </li>
+                    <li class="next">
+                        <div>Возвращает значение по ключу</div>
+                        <div class="font-monospace bold">apcu_fetch()</div>
+                    </li>
+                    <li class="next">
+                        <div>Очистить всю память APCu </div>
+                        <div class="font-monospace bold">apcu_clear_cache()</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>А как же опечатки?</h2>
+        <div class="next mb-2">Помогут нам <mark>триграммы</mark></div>
+        <div class="columns two lh-12">
+            <div class="next">Каждое слово делится на сочетания – триграммы</div>
+            <div>
+                <div class="next bold">Например, для "Ростов":</div>
+                <div class="bold font-monospace mb-3">
+                    <span class="next">__Р</span>
+                    <span class="next">_РО</span>
+                    <span class="next">РОС</span>
+                    <span class="next">ОСТ</span>
+                    <span class="next">СТО</span>
+                    <span class="next">ТОВ</span>
+                    <span class="next">ОВ_</span>
+                    <span class="next">В__</span>
+                </div>
+            </div>
+        </div>
+        <div class="columns two lh-12">
+            <div class="next">При поиске похожей фразы ищутся одинаковые триграммы</div>
+            <div>
+                <div class="next bold">Поиск по фразе "Растов":</div>
+                <div class="bold font-monospace mb-3">
+                    <span class="next" style="color: #FFBB00">__Р</span>
+                    <span class="next">_РА</span>
+                    <span class="next">РАС</span>
+                    <span class="next">АСТ</span>
+                    <span class="next" style="color: #FFBB00">СТО</span>
+                    <span class="next" style="color: #FFBB00">ТОВ</span>
+                    <span class="next" style="color: #FFBB00">ОВ_</span>
+                    <span class="next" style="color: #FFBB00">В__</span>
+                </div>
+            </div>
+        </div>
+        <div class="columns two lh-12">
+            <div class="next">Чем больше равных триграмм, тем больше фраза схожа с исходной</div>
+            <div>
+                <mark class="next">Нужен индекс по триграммам!</mark>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>Индекс для триграмм</h2>
+        <div class="columns two">
+            <div>
+                <div class="next mb-2 lh-12">Нужны уникальные идентификаторы токенов</div>
+                <div class="next gray italic">// переулок Соляной спуск</div>
+                <div class="next font-monospace bold"><mark>301</mark> => СОЛЯН</div>
+                <div class="next gray italic">// ул Солянка</div>
+                <div class="next font-monospace bold"><mark>302</mark> => СОЛЯНК</div>
+            </div>
+            <div>
+                <pre class="lh-15 next font-monospace" style="color: rgb(36, 41, 46); background-color: rgb(255, 255, 255); font-weight: 400; "><ol style="padding-left: 3em;"><li><span style="color: rgb(0, 92, 197); font-weight: 400;">$index</span> = [</li><li>    <span style="color: rgb(3, 47, 98); font-weight: 400;">'__С'</span>  =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">301</span>, <span style="color: rgb(0, 92, 197); font-weight: 400;">302</span>],</li><li>    <span style="color: rgb(3, 47, 98); font-weight: 400;">'_СО'</span>  =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">301</span>, <span style="color: rgb(0, 92, 197); font-weight: 400;">302</span>],</li><li>    <span style="color: rgb(3, 47, 98); font-weight: 400;">'СОЛ'</span>  =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">301</span>, <span style="color: rgb(0, 92, 197); font-weight: 400;">302</span>],</li><li>    <span style="color: rgb(3, 47, 98); font-weight: 400;">'ОЛЯ'</span>  =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">301</span>, <span style="color: rgb(0, 92, 197); font-weight: 400;">302</span>],</li><li>    <span style="color: rgb(3, 47, 98); font-weight: 400;">'ЛЯН'</span>  =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">301</span>, <span style="color: rgb(0, 92, 197); font-weight: 400;">302</span>],</li><li>    <span style="color: rgb(3, 47, 98); font-weight: 400;">'ЯН_'</span>  =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">301</span>],</li><li>    <span style="color: rgb(3, 47, 98); font-weight: 400;">'Н__'</span>  =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">301</span>],</li><li>    <span style="color: rgb(3, 47, 98); font-weight: 400;">'ЯНК'</span>  =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">302</span>],</li><li>    <span style="color: rgb(3, 47, 98); font-weight: 400;">'НК_'</span>  =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">302</span>],</li><li>    <span style="color: rgb(3, 47, 98); font-weight: 400;">'К__'</span>  =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">302</span>],</li><li>];</li></ol></pre>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>Как использовать индекс триграмм для опечаток?</h2>
+        <pre class="lh-15 next font-monospace" style="color: rgb(36, 41, 46); background-color: rgb(255, 255, 255); font-weight: 400; "><ol style="padding-left: 3em;"><li><span style="color: rgb(0, 92, 197); font-weight: 400;">$bestTokenId</span> = <span style="color: rgb(0, 92, 197); font-weight: 400;">null</span>;</li><li><span style="color: rgb(106, 115, 125); font-weight: 400;">// $trigrams = ['__C', '_СА', 'САЛ', 'АЛЯ', 'ЛЯН', 'ЯН_', 'Н__']</span></li><li><span style="color: rgb(0, 92, 197); font-weight: 400;">$trigrams</span> = <span style="color: rgb(111, 66, 193); font-weight: 400;">getTrigrams</span>(<span style="color: rgb(3, 47, 98); font-weight: 400;">'САЛЯН'</span>);</li><li><span style="color: rgb(215, 58, 73); font-weight: 400;">foreach</span> (<span style="color: rgb(0, 92, 197); font-weight: 400;">$trigrams</span> <span style="color: rgb(215, 58, 73); font-weight: 400;">as</span> <span style="color: rgb(0, 92, 197); font-weight: 400;">$trigram</span>) {</li><li>    <span style="color: rgb(106, 115, 125); font-weight: 400;">// [301, 302], [], [], [], [301, 302], [301], [301]</span></li><li>    <span style="color: rgb(0, 92, 197); font-weight: 400;">$tokenIds</span> = <span style="color: rgb(0, 92, 197); font-weight: 400;">$index</span>[<span style="color: rgb(0, 92, 197); font-weight: 400;">$trigram</span>] ?? [];</li><li>    <span style="color: rgb(215, 58, 73); font-weight: 400;">foreach</span> (<span style="color: rgb(0, 92, 197); font-weight: 400;">$tokenIds</span> <span style="color: rgb(215, 58, 73); font-weight: 400;">as</span> <span style="color: rgb(0, 92, 197); font-weight: 400;">$id</span>) {</li><li>        <span style="color: rgb(0, 92, 197); font-weight: 400;">$counter</span>[<span style="color: rgb(0, 92, 197); font-weight: 400;">$id</span>] = <span style="color: rgb(215, 58, 73); font-weight: 400;">isset</span>(<span style="color: rgb(0, 92, 197); font-weight: 400;">$counter</span>[<span style="color: rgb(0, 92, 197); font-weight: 400;">$id</span>]) ? <span style="color: rgb(0, 92, 197); font-weight: 400;">$counter</span>[<span style="color: rgb(0, 92, 197); font-weight: 400;">$id</span>] + <span style="color: rgb(0, 92, 197); font-weight: 400;">1</span> : <span style="color: rgb(0, 92, 197); font-weight: 400;">1</span>;</li><li>        <span style="color: rgb(215, 58, 73); font-weight: 400;">if</span> (<span style="color: rgb(0, 92, 197); font-weight: 400;">$bestTokenId</span> === <span style="color: rgb(0, 92, 197); font-weight: 400;">null</span> || <span style="color: rgb(0, 92, 197); font-weight: 400;">$counter</span>[<span style="color: rgb(0, 92, 197); font-weight: 400;">$bestTokenId</span>] &lt; <span style="color: rgb(0, 92, 197); font-weight: 400;">$counter</span>[<span style="color: rgb(0, 92, 197); font-weight: 400;">$id</span>]) {</li><li>            <span style="color: rgb(0, 92, 197); font-weight: 400;">$bestTokenId</span> = <span style="color: rgb(0, 92, 197); font-weight: 400;">$id</span>;</li><li>        }</li><li>    }</li><li>}</li><li><span style="color: rgb(106, 115, 125); font-weight: 400;">// $counter = [301 =&gt; 4, 302 =&gt; 2], $bestTokenId = 301</span></li><li><span style="color: rgb(215, 58, 73); font-weight: 400;">echo</span> <span style="color: rgb(111, 66, 193); font-weight: 400;">getTokenById</span>(<span style="color: rgb(0, 92, 197); font-weight: 400;">$bestTokenId</span>); <span style="color: rgb(106, 115, 125); font-weight: 400;">// СОЛЯН</span></li></ol></pre>
+    </section>
+
+    <section class="slide">
+        <h2>Как быть с подсказками (suggestions)?</h2>
+        <div class="next mb-3">Пользователь начинает ввод <span class="bold">"Солян"</span>. Хотим предложить варианты:</div>
+        <div class="next font-monospace bold">г Ростов-на-Дону ул Соляника</div>
+        <div class="next font-monospace bold">г Ростов-на-Дону пер Соляной Спуск</div>
+        <div class="next font-monospace bold">г Москва Солянка</div>
+        <div class="next font-monospace bold">г Москва Солянский тупик</div>
+        <div class="next font-monospace bold mb-3">г Москва Солянский проезд</div>
+
+        <div class="next">Похоже, наши индексы нам не помогут 🤔</div>
+    </section>
+
+    <section class="slide">
+        <h2>Префиксное дерево для подсказок</h2>
+        <div class="columns two">
+            <div>
+                <div class="mb-2">Дерево для токенов:</div>
+                <div class="lh-12 font-monospace bold next">
+                    <div>СОЛЯНК</div>
+                    <div>СОБОРН</div>
+                    <div>СОКОЛОВ</div>
+                    <div>СОКОЛ</div>
+                    <div>СОВЕТСК</div>
+                    <div>МОСКВ</div>
+                    <div>МОСКОВСК</div>
+                    <div>МОНТАЖН</div>
+                </div>
+            </div>
+            <div>
+                <img class="next" src="pictures/lila/trie.png" style="max-width: 100%; max-height: 100%; display: block;margin: auto;">
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>Префиксное дерево для подсказок</h2>
+        <div class="columns two">
+            <div>
+                <div class="mb-2">Дерево для токенов:</div>
+                <div class="lh-12 font-monospace bold">
+                    <div><mark>СОЛЯНК</mark></div>
+                    <div>СОБОРН</div>
+                    <div>СОКОЛОВ</div>
+                    <div>СОКОЛ</div>
+                    <div>СОВЕТСК</div>
+                    <div>МОСКВ</div>
+                    <div>МОСКОВСК</div>
+                    <div>МОНТАЖН</div>
+                </div>
+            </div>
+            <div>
+                <img src="pictures/lila/trie-solyank.png" style="max-width: 100%; max-height: 100%; display: block;margin: auto;">
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>Префиксное дерево для подсказок</h2>
+        <div class="columns two">
+            <div>
+                <div class="mb-2">Дерево для токенов:</div>
+                <div class="lh-12 font-monospace bold">
+                    <div>СОЛЯНК</div>
+                    <div>СОБОРН</div>
+                    <div>СОКОЛОВ</div>
+                    <div>СОКОЛ</div>
+                    <div>СОВЕТСК</div>
+                    <div><mark>МОСКВ</mark></div>
+                    <div>МОСКОВСК</div>
+                    <div>МОНТАЖН</div>
+                </div>
+            </div>
+            <div>
+                <img src="pictures/lila/trie-moskv.png" style="max-width: 100%; max-height: 100%; display: block;margin: auto;">
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>Сжатое префиксное дерево</h2>
+        <img src="pictures/lila/trie-packed.png" style="max-width: 100%; max-height: 100%; display: block;margin: auto;">
+    </section>
+
+    <section class="slide">
+        <h2>Индекс на PHP для сжатого префиксного дерева</h2>
+        <pre class="lh-14 next font-monospace" style="color: rgb(36, 41, 46); background-color: rgb(255, 255, 255); font-weight: 400; "><ol style="padding-left: 3em;"><li><span style="color: rgb(0, 92, 197); font-weight: 400;">$index</span> = [</li><li>    <span style="color: rgb(3, 47, 98); font-weight: 400;">'СО'</span> =&gt; [</li><li>        <span style="color: rgb(3, 47, 98); font-weight: 400;">'ЛЯНК'</span>  =&gt; [<span style="color: rgb(3, 47, 98); font-weight: 400;">'*'</span> =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">100</span>, <span style="color: rgb(0, 92, 197); font-weight: 400;">101</span>, ...]],</li><li>        <span style="color: rgb(3, 47, 98); font-weight: 400;">'БОРН'</span>  =&gt; [<span style="color: rgb(3, 47, 98); font-weight: 400;">'*'</span> =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">200</span>, <span style="color: rgb(0, 92, 197); font-weight: 400;">201</span>, ...]],</li><li>        <span style="color: rgb(3, 47, 98); font-weight: 400;">'КОЛ'</span>   =&gt; [</li><li>            <span style="color: rgb(3, 47, 98); font-weight: 400;">'*'</span>  =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">300</span>, <span style="color: rgb(0, 92, 197); font-weight: 400;">301</span>, ...],</li><li>            <span style="color: rgb(3, 47, 98); font-weight: 400;">'ОВ'</span> =&gt; [<span style="color: rgb(3, 47, 98); font-weight: 400;">'*'</span> =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">400</span>, <span style="color: rgb(0, 92, 197); font-weight: 400;">401</span>, ...]],</li><li>        ],</li><li>        <span style="color: rgb(3, 47, 98); font-weight: 400;">'ВЕТСК'</span> =&gt; [<span style="color: rgb(3, 47, 98); font-weight: 400;">'*'</span> =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">500</span>, <span style="color: rgb(0, 92, 197); font-weight: 400;">501</span>, ...]],</li><li>    ],</li><li>    <span style="color: rgb(3, 47, 98); font-weight: 400;">'МО'</span> =&gt; [</li><li>        <span style="color: rgb(3, 47, 98); font-weight: 400;">'СК'</span>    =&gt; [</li><li>            <span style="color: rgb(3, 47, 98); font-weight: 400;">'ОВСК'</span> =&gt; [<span style="color: rgb(3, 47, 98); font-weight: 400;">'*'</span> =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">600</span>, <span style="color: rgb(0, 92, 197); font-weight: 400;">601</span>, ...]],</li><li>            <span style="color: rgb(3, 47, 98); font-weight: 400;">'В'</span>    =&gt; [<span style="color: rgb(3, 47, 98); font-weight: 400;">'*'</span> =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">700</span>, <span style="color: rgb(0, 92, 197); font-weight: 400;">701</span>, ...]],</li><li>        ],</li><li>        <span style="color: rgb(3, 47, 98); font-weight: 400;">'НТАЖН'</span> =&gt; [<span style="color: rgb(3, 47, 98); font-weight: 400;">'*'</span> =&gt; [<span style="color: rgb(0, 92, 197); font-weight: 400;">800</span>, <span style="color: rgb(0, 92, 197); font-weight: 400;">801</span>, ...]],</li><li>    ],</li><li>];</li></ol></pre>
+    </section>
+
+
+    <section class="slide">
+        <h2>Основная проблема производительности</h2>
+        <div class="columns two">
+            <div>
+                <div class="next lh-12 mb-2">Слишком популярные токены:</div>
+                <ul>
+                    <li class="next bold font-monospace">
+                        <div>МОСКВ</div>
+                        <mark class="next">3.5+ млн адресов</mark>
+                    </li>
+                    <li class="next bold font-monospace">
+                        <div>1...200</div>
+                        <mark class="next">0.5+ млн улиц</mark>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <div class="next lh-12 mb-2">Для адреса <span class="bold">"г Москва ул Солянка 1"</span> пересечений:</div>
+                <div class="next font-monospace bold">3.5 + 0.0005 + 0.5</div>
+                <div class="next font-monospace bold" style="font-size: 36px"><mark>4+ млн</mark></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>Оптимизация</h2>
+        <div class="columns two">
+            <div>
+                <ul>
+                    <li class="next lh-12 mb-2">Для поиска городов отдельный индекс (без улиц и домов)</li>
+                    <li class="next lh-12 mb-2">Отдельные индексы по улицам для каждого города</li>
+                    <li class="next lh-12 mb-3">Отдельные индексы по номерам домов для каждой улицы</li>
+                </ul>
+            </div>
+            <div>
+                <div class="bold next">Время поиска адреса:</div>
+                <div class="next">ДО оптимизации:</div>
+                <div>
+                    <mark class="font-monospace bold next">0.300-0.400 сек</mark>
+                    <span class="next">😱</span>
+                </div>
+                <div class="next">ПОСЛЕ оптимизации:</div>
+                <div>
+                    <mark class="font-monospace bold next">0.0001 сек</mark>
+                    <span class="next">😎</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h1 style="text-align: center; font-size: 80px">Спасибо за внимание!</h1>
+        <div style="width:70%; margin: 50px auto;">
+            <div class="lh-12" style="background-position: left center; background-image: url('pictures/lila/icons/github.svg'); background-repeat: no-repeat; padding-left: 50px; height: 40px; padding-top: 5px;">github.com/vblila</div>
+            <div class="lh-12" style="background-position: left center; background-image: url('pictures/lila/icons/linkedin.svg'); background-repeat: no-repeat; padding-left: 50px; height: 40px; padding-top: 5px;">linkedin.com/in/vladimir-lila</div>
+            <div class="lh-12" style="background-position: left center; background-image: url('pictures/lila/icons/vk.svg'); background-repeat: no-repeat; padding-left: 50px; height: 40px; padding-top: 5px;">vk.com/v.b.lila</div>
+        </div>
+    </section>
+
+    <div class="progress"></div>
+
+    <footer class="badge">
+        <a href="https://github.com/shower/shower">Fork me on GitHub</a>
+    </footer>
+
+    <script src="js/shower.min.js"></script>
+
+    <!-- Copyright © 3000 Yours Truly, Famous Inc. -->
+</body>
+</html>

@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
+   sodipodi:docname="trie-packed.svg"
+   inkscape:export-filename="/home/alpha/Рабочий стол/rndphp/trie-solyank.png"
+   inkscape:export-xdpi="299.96188"
+   inkscape:export-ydpi="299.96188"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:snap-global="true"
+     inkscape:zoom="1"
+     inkscape:cx="-2893"
+     inkscape:cy="-32"
+     inkscape:window-width="1920"
+     inkscape:window-height="1151"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2">
+    <rect
+       x="-3294.1892"
+       y="-67.465149"
+       width="71.478607"
+       height="293.11932"
+       id="rect114446" />
+    <rect
+       x="-2875.8112"
+       y="-8.6646475"
+       width="336.63427"
+       height="287.55906"
+       id="rect49155" />
+    <rect
+       x="1013.3941"
+       y="-128.49512"
+       width="804.43469"
+       height="451.14293"
+       id="rect33726" />
+  </defs>
+  <g
+     inkscape:label="Слой 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <text
+       xml:space="preserve"
+       transform="scale(0.26458333)"
+       id="text33724"
+       style="fill:black;fill-opacity:1;line-height:1.25;stroke:none;font-family:sans-serif;font-style:normal;font-weight:normal;font-size:40px;white-space:pre;shape-inside:url(#rect33726)" />
+    <path
+       id="path57"
+       style="fill:#e6e6e6;stroke-width:0.264583"
+       d="m -765.75002,-67.032218 a 5.9719462,5.9719462 0 0 1 -5.97195,5.971946 5.9719462,5.9719462 0 0 1 -5.97194,-5.971946 5.9719462,5.9719462 0 0 1 5.97194,-5.971946 5.9719462,5.9719462 0 0 1 5.97195,5.971946 z"
+       inkscape:export-filename="/home/alpha/Рабочий стол/rndphp/Пишем свой геокодер на PHP/pictures/lila/trie-packed.png"
+       inkscape:export-xdpi="299.9957"
+       inkscape:export-ydpi="299.9957" />
+    <path
+       id="path57-3-2-9-6"
+       style="fill:#ffd42a;stroke-width:0.264583"
+       d="m -707.9996,-7.3367079 a 5.9719462,5.9719462 0 0 1 -5.97195,5.9719427 5.9719462,5.9719462 0 0 1 -5.97194,-5.9719427 5.9719462,5.9719462 0 0 1 5.97194,-5.9719481 5.9719462,5.9719462 0 0 1 5.97195,5.9719481 z"
+       inkscape:export-filename="/home/alpha/Рабочий стол/rndphp/Пишем свой геокодер на PHP/pictures/lila/trie-packed.png"
+       inkscape:export-xdpi="299.9957"
+       inkscape:export-ydpi="299.9957" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.78747px;line-height:1.25;font-family:'Liberation Mono';-inkscape-font-specification:'Liberation Mono, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.219687"
+       x="-716.79059"
+       y="-4.4425874"
+       id="text4970-9-20-08"
+       inkscape:export-filename="/home/alpha/Рабочий стол/rndphp/Пишем свой геокодер на PHP/pictures/lila/trie-packed.png"
+       inkscape:export-xdpi="299.9957"
+       inkscape:export-ydpi="299.9957"><tspan
+         sodipodi:role="line"
+         id="tspan4968-1-2-5"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.78747px;font-family:'Liberation Mono';-inkscape-font-specification:'Liberation Mono, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.219687"
+         x="-716.79059"
+         y="-4.4425874">В</tspan></text>
+    <text
+       xml:space="preserve"
+       transform="scale(0.26458333)"
+       id="text49153"
+       style="fill:black;fill-opacity:1;line-height:1.25;stroke:none;font-family:sans-serif;font-style:normal;font-weight:normal;font-size:40px;white-space:pre;shape-inside:url(#rect49155)" />
+    <rect
+       style="fill:#ffd42a;stroke-width:0.226641"
+       id="rect77414"
+       width="29.816044"
+       height="13.298574"
+       x="-917.27435"
+       y="-34.084221"
+       inkscape:export-filename="/home/alpha/Рабочий стол/rndphp/Пишем свой геокодер на PHP/pictures/lila/trie-packed.png"
+       inkscape:export-xdpi="299.9957"
+       inkscape:export-ydpi="299.9957" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.78747px;line-height:1.25;font-family:'Liberation Mono';-inkscape-font-specification:'Liberation Mono, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.219687"
+       x="-913.35168"
+       y="-24.575129"
+       id="text4970-9-6"
+       inkscape:export-filename="/home/alpha/Рабочий стол/rndphp/Пишем свой геокодер на PHP/pictures/lila/trie-packed.png"
+       inkscape:export-xdpi="299.9957"
+       inkscape:export-ydpi="299.9957"><tspan
+         sodipodi:role="line"
+         id="tspan4968-1-0"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.78747px;font-family:'Liberation Mono';-inkscape-font-specification:'Liberation Mono, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.219687"
+         x="-913.35168"
+         y="-24.575129">ЛЯНК</tspan></text>
+    <rect
+       style="fill:#ffd42a;stroke-width:0.221399"
+       id="rect77414-7"
+       width="28.45257"
+       height="13.298574"
+       x="-874.07886"
+       y="-34.084221"
+       inkscape:export-filename="/home/alpha/Рабочий стол/rndphp/Пишем свой геокодер на PHP/pictures/lila/trie-packed.png"
+       inkscape:export-xdpi="299.9957"
+       inkscape:export-ydpi="299.9957" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.78747px;line-height:1.25;font-family:'Liberation Mono';-inkscape-font-specification:'Liberation Mono, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.219687"
+       x="-870.15619"
+       y="-24.538658"
+       id="text4970-9-6-6"
+       inkscape:export-filename="/home/alpha/Рабочий стол/rndphp/Пишем свой геокодер на PHP/pictures/lila/trie-packed.png"
+       inkscape:export-xdpi="299.9957"
+       inkscape:export-ydpi="299.9957"><tspan
+         sodipodi:role="line"
+         id="tspan4968-1-0-1"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.78747px;font-family:'Liberation Mono';-inkscape-font-specification:'Liberation Mono, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.219687"
+         x="-870.15619"
+         y="-24.538658">БОРН</tspan></text>
+    <rect
+       style="fill:#ffd42a;stroke-width:0.178206"
+       id="rect77414-7-5"
+       width="18.433777"
+       height="13.298574"
+       x="-831.86163"
+       y="-13.98599"
+       inkscape:export-filename="/home/alpha/Рабочий стол/rndphp/Пишем свой геокодер на PHP/pictures/lila/trie-packed.png"
+       inkscape:export-xdpi="299.9957"
+       inkscape:export-ydpi="299.9957" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.78747px;line-height:1.25;font-family:'Liberation Mono';-inkscape-font-specification:'Liberation Mono, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.219687"
+       x="-827.97168"
+       y="-4.4404435"
+       id="text4970-9-6-6-0"
+       inkscape:export-filename="/home/alpha/Рабочий стол/rndphp/Пишем свой геокодер на PHP/pictures/lila/trie-packed.png"
+       inkscape:export-xdpi="299.9957"
+       inkscape:export-ydpi="299.9957"><tspan
+         sodipodi:role="line"
+         id="tspan4968-1-0-1-6"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.78747px;font-family:'Liberation Mono';-inkscape-font-specification:'Liberation Mono, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.219687"
+         x="-827.97168"
+         y="-4.4404435">ОВ</tspan></text>
+    <rect
+       style="fill:#ffd42a;stroke-width:0.238181"
+       id="rect77414-7-5-5"
+       width="32.929558"
+       height="13.298574"
+       x="-799.86121"
+       y="-34.084221"
+       inkscape:export-filename="/home/alpha/Рабочий стол/rndphp/Пишем свой геокодер на PHP/pictures/lila/trie-packed.png"
+       inkscape:export-xdpi="299.9957"
+       inkscape:export-ydpi="299.9957" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.78747px;line-height:1.25;font-family:'Liberation Mono';-inkscape-font-specification:'Liberation Mono, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.219687"
+       x="-795.93854"
+       y="-24.538658"
+       id="text4970-9-6-6-0-0"
+       inkscape:export-filename="/home/alpha/Рабочий стол/rndphp/Пишем свой геокодер на PHP/pictures/lila/trie-packed.png"
+       inkscape:export-xdpi="299.9957"
+       inkscape:export-ydpi="299.9957"><tspan
+         sodipodi:role="line"
+         id="tspan4968-1-0-1-6-8"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.78747px;font-family:'Liberation Mono';-inkscape-font-specification:'Liberation Mono, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.219687"
+         x="-795.93854"
+         y="-24.538658">ВЕТСК</tspan></text>
+    <rect
+       style="fill:#ffd42a;stroke-width:0.218957"
+       id="rect77414-7-5-5-1"
+       width="27.828447"
+       height="13.298574"
+       x="-759.8103"
+       y="-13.98599"
+       inkscape:export-filename="/home/alpha/Рабочий стол/rndphp/Пишем свой геокодер на PHP/pictures/lila/trie-packed.png"
+       inkscape:export-xdpi="299.9957"
+       inkscape:export-ydpi="299.9957" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.78747px;line-height:1.25;font-family:'Liberation Mono';-inkscape-font-specification:'Liberation Mono, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.219687"
+       x="-755.88763"
+       y="-4.4404435"
+       id="text4970-9-6-6-0-0-2"
+       inkscape:export-filename="/home/alpha/Рабочий стол/rndphp/Пишем свой геокодер на PHP/pictures/lila/trie-packed.png"
+       inkscape:export-xdpi="299.9957"
+       inkscape:export-ydpi="299.9957"><tspan
+         sodipodi:role="line"
+         id="tspan4968-1-0-1-6-8-2"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.78747px;font-family:'Liberation Mono';-inkscape-font-specification:'Liberation Mono, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.219687"
+         x="-755.88763"
+         y="-4.4404435">ОВСК</tspan></text>
+    <rect
+       style="fill:#ffd42a;stroke-width:0.242974"
+       id="rect77414-7-5-5-1-6"
+       width="34.268044"
+       height="13.298574"
+       x="-698.21667"
+       y="-34.084221"
+       inkscape:export-filename="/home/alpha/Рабочий стол/rndphp/Пишем свой геокодер на PHP/pictures/lila/trie-packed.png"
+       inkscape:export-xdpi="299.9957"
+       inkscape:export-ydpi="299.9957" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.78747px;line-height:1.25;font-family:'Liberation Mono';-inkscape-font-specification:'Liberation Mono, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.219687"
+       x="-694.29401"
+       y="-24.540802"
+       id="text4970-9-6-6-0-0-2-9"
+       inkscape:export-filename="/home/alpha/Рабочий стол/rndphp/Пишем свой геокодер на PHP/pictures/lila/trie-packed.png"
+       inkscape:export-xdpi="299.9957"
+       inkscape:export-ydpi="299.9957"><tspan
+         sodipodi:role="line"
+         id="tspan4968-1-0-1-6-8-2-1"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.78747px;font-family:'Liberation Mono';-inkscape-font-specification:'Liberation Mono, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.219687"
+         x="-694.29401"
+         y="-24.540802">НТАЖН</tspan></text>
+    <text
+       xml:space="preserve"
+       transform="scale(0.26458333)"
+       id="text114444"
+       style="fill:black;fill-opacity:1;line-height:1.25;stroke:none;font-family:sans-serif;font-style:normal;font-weight:normal;font-size:40px;white-space:pre;shape-inside:url(#rect114446)" />
+    <rect
+       style="fill:#e6e6e6;stroke-width:0.178206"
+       id="rect77414-7-5-0"
+       width="18.433777"
+       height="13.298574"
+       x="-740.40283"
+       y="-34.084221"
+       inkscape:export-filename="/home/alpha/Рабочий стол/rndphp/Пишем свой геокодер на PHP/pictures/lila/trie-packed.png"
+       inkscape:export-xdpi="299.9957"
+       inkscape:export-ydpi="299.9957" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.78747px;line-height:1.25;font-family:'Liberation Mono';-inkscape-font-specification:'Liberation Mono, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.219687"
+       x="-736.51294"
+       y="-24.538658"
+       id="text4970-9-6-6-0-4"
+       inkscape:export-filename="/home/alpha/Рабочий стол/rndphp/Пишем свой геокодер на PHP/pictures/lila/trie-packed.png"
+       inkscape:export-xdpi="299.9957"
+       inkscape:export-ydpi="299.9957"><tspan
+         sodipodi:role="line"
+         id="tspan4968-1-0-1-6-2"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.78747px;font-family:'Liberation Mono';-inkscape-font-specification:'Liberation Mono, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.219687"
+         x="-736.51294"
+         y="-24.538658">СК</tspan></text>
+    <rect
+       style="fill:#ffd42a;stroke-width:0.201571"
+       id="rect77414-7-5-7"
+       width="23.584463"
+       height="13.298574"
+       x="-834.43695"
+       y="-34.084221"
+       inkscape:export-filename="/home/alpha/Рабочий стол/rndphp/Пишем свой геокодер на PHP/pictures/lila/trie-packed.png"
+       inkscape:export-xdpi="299.9957"
+       inkscape:export-ydpi="299.9957" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.78747px;line-height:1.25;font-family:'Liberation Mono';-inkscape-font-specification:'Liberation Mono, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.219687"
+       x="-830.67487"
+       y="-24.538658"
+       id="text4970-9-6-6-0-40"
+       inkscape:export-filename="/home/alpha/Рабочий стол/rndphp/Пишем свой геокодер на PHP/pictures/lila/trie-packed.png"
+       inkscape:export-xdpi="299.9957"
+       inkscape:export-ydpi="299.9957"><tspan
+         sodipodi:role="line"
+         id="tspan4968-1-0-1-6-3"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.78747px;font-family:'Liberation Mono';-inkscape-font-specification:'Liberation Mono, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.219687"
+         x="-830.67487"
+         y="-24.538658">КОЛ</tspan></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -822.64473,-20.785646 -10e-6,6.799656"
+       id="path123006"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect77414-7-5-7"
+       inkscape:connection-end="#rect77414-7-5"
+       inkscape:export-filename="/home/alpha/Рабочий стол/rndphp/Пишем свой геокодер на PHP/pictures/lila/trie-packed.png"
+       inkscape:export-xdpi="299.9957"
+       inkscape:export-ydpi="299.9957" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -741.02939,-13.98599 4.97675,-6.799656"
+       id="path123008"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect77414-7-5-5-1"
+       inkscape:connection-end="#rect77414-7-5-0"
+       inkscape:export-filename="/home/alpha/Рабочий стол/rndphp/Пишем свой геокодер на PHP/pictures/lila/trie-packed.png"
+       inkscape:export-xdpi="299.9957"
+       inkscape:export-ydpi="299.9957" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -725.49074,-20.785646 7.63441,8.913356"
+       id="path123010"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect77414-7-5-0"
+       inkscape:connection-end="#path57-3-2-9-6"
+       inkscape:export-filename="/home/alpha/Рабочий стол/rndphp/Пишем свой геокодер на PHP/pictures/lila/trie-packed.png"
+       inkscape:export-xdpi="299.9957"
+       inkscape:export-ydpi="299.9957" />
+    <rect
+       style="fill:#e6e6e6;stroke-width:0.180079"
+       id="rect77414-7-5-7-2"
+       width="18.823383"
+       height="13.298574"
+       x="-847.67694"
+       y="-58.109142"
+       inkscape:export-filename="/home/alpha/Рабочий стол/rndphp/Пишем свой геокодер на PHP/pictures/lila/trie-packed.png"
+       inkscape:export-xdpi="299.9957"
+       inkscape:export-ydpi="299.9957" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.78747px;line-height:1.25;font-family:'Liberation Mono';-inkscape-font-specification:'Liberation Mono, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.219687"
+       x="-843.91486"
+       y="-48.563595"
+       id="text4970-9-6-6-0-40-8"
+       inkscape:export-filename="/home/alpha/Рабочий стол/rndphp/Пишем свой геокодер на PHP/pictures/lila/trie-packed.png"
+       inkscape:export-xdpi="299.9957"
+       inkscape:export-ydpi="299.9957"><tspan
+         sodipodi:role="line"
+         id="tspan4968-1-0-1-6-3-0"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.78747px;font-family:'Liberation Mono';-inkscape-font-specification:'Liberation Mono, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.219687"
+         x="-843.91486"
+         y="-48.563595">СО</tspan></text>
+    <rect
+       style="fill:#e6e6e6;stroke-width:0.180079"
+       id="rect77414-7-5-7-2-3"
+       width="18.823383"
+       height="13.298574"
+       x="-719.00958"
+       y="-58.109142"
+       inkscape:export-filename="/home/alpha/Рабочий стол/rndphp/Пишем свой геокодер на PHP/pictures/lila/trie-packed.png"
+       inkscape:export-xdpi="299.9957"
+       inkscape:export-ydpi="299.9957" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.78747px;line-height:1.25;font-family:'Liberation Mono';-inkscape-font-specification:'Liberation Mono, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.219687"
+       x="-715.2475"
+       y="-48.563595"
+       id="text4970-9-6-6-0-40-8-7"
+       inkscape:export-filename="/home/alpha/Рабочий стол/rndphp/Пишем свой геокодер на PHP/pictures/lila/trie-packed.png"
+       inkscape:export-xdpi="299.9957"
+       inkscape:export-ydpi="299.9957"><tspan
+         sodipodi:role="line"
+         id="tspan4968-1-0-1-6-3-0-0"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.78747px;font-family:'Liberation Mono';-inkscape-font-specification:'Liberation Mono, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.219687"
+         x="-715.2475"
+         y="-48.563595">МО</tspan></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -777.53672,-65.671457 -51.31684,12.009091"
+       id="path127064"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#path57"
+       inkscape:connection-end="#rect77414-7-5-7-2"
+       inkscape:export-filename="/home/alpha/Рабочий стол/rndphp/Пишем свой геокодер на PHP/pictures/lila/trie-packed.png"
+       inkscape:export-xdpi="299.9957"
+       inkscape:export-ydpi="299.9957" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -765.92924,-65.580182 46.91966,11.76114"
+       id="path127168"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#path57"
+       inkscape:connection-end="#rect77414-7-5-7-2-3"
+       inkscape:export-filename="/home/alpha/Рабочий стол/rndphp/Пишем свой геокодер на PHP/pictures/lila/trie-packed.png"
+       inkscape:export-xdpi="299.9957"
+       inkscape:export-ydpi="299.9957" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -847.67694,-47.932377 -39.78137,14.909955"
+       id="path127272"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect77414-7-5-7-2"
+       inkscape:connection-end="#rect77414"
+       inkscape:export-filename="/home/alpha/Рабочий стол/rndphp/Пишем свой геокодер на PHP/pictures/lila/trie-packed.png"
+       inkscape:export-xdpi="299.9957"
+       inkscape:export-ydpi="299.9957" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -844.23989,-44.810568 -9.63804,10.726347"
+       id="path127274"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect77414-7-5-7-2"
+       inkscape:connection-end="#rect77414-7"
+       inkscape:export-filename="/home/alpha/Рабочий стол/rndphp/Пишем свой геокодер на PHP/pictures/lila/trie-packed.png"
+       inkscape:export-xdpi="299.9957"
+       inkscape:export-ydpi="299.9957" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -833.94201,-44.810568 6.97406,10.726347"
+       id="path127276"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect77414-7-5-7-2"
+       inkscape:connection-end="#rect77414-7-5-7"
+       inkscape:export-filename="/home/alpha/Рабочий стол/rndphp/Пишем свой геокодер на PHP/pictures/lila/trie-packed.png"
+       inkscape:export-xdpi="299.9957"
+       inkscape:export-ydpi="299.9957" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -798.58226,-34.084221 -30.2713,-13.254621"
+       id="path127278"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect77414-7-5-5"
+       inkscape:connection-end="#rect77414-7-5-7-2"
+       inkscape:export-filename="/home/alpha/Рабочий стол/rndphp/Пишем свой геокодер на PHP/pictures/lila/trie-packed.png"
+       inkscape:export-xdpi="299.9957"
+       inkscape:export-ydpi="299.9957" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -725.2111,-34.084221 9.63836,-10.726347"
+       id="path127280"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect77414-7-5-0"
+       inkscape:connection-end="#rect77414-7-5-7-2-3"
+       inkscape:export-filename="/home/alpha/Рабочий стол/rndphp/Пишем свой геокодер на PHP/pictures/lila/trie-packed.png"
+       inkscape:export-xdpi="299.9957"
+       inkscape:export-ydpi="299.9957" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -688.97471,-34.084221 -12.73113,-10.726347"
+       id="path127282"
+       inkscape:connector-type="polyline"
+       inkscape:connector-curvature="0"
+       inkscape:connection-start="#rect77414-7-5-5-1-6"
+       inkscape:connection-end="#rect77414-7-5-7-2-3"
+       inkscape:export-filename="/home/alpha/Рабочий стол/rndphp/Пишем свой геокодер на PHP/pictures/lila/trie-packed.png"
+       inkscape:export-xdpi="299.9957"
+       inkscape:export-ydpi="299.9957" />
+  </g>
+</svg>
